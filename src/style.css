@@ -3,3 +3,17 @@
   font-size: 1em;
   line-height: 2;
 }
+
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+
+*,
+:before,
+:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

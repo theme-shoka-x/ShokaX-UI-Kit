@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavItemType } from './components/navbar/NavTypes'
+import { provide } from 'vue'
 import NavBar from './components/navbar/NavBar.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
 import Waves from './components/waves/Waves.vue'
@@ -38,6 +39,8 @@ const navlinks: NavItemType[] = [
     ],
   },
 ]
+
+provide('linkElName', 'a')
 </script>
 
 <template>

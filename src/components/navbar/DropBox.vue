@@ -13,7 +13,7 @@ const props = defineProps<{
 
 const linkEl = useTemplateRef('linkEl')
 const submenuEl = useTemplateRef('submenuEl')
-const hoveringLink = useElementHover(linkEl, { delayLeave: 300 })
+const hoveringLink = useElementHover(linkEl as Ref, { delayLeave: 300 })
 const hoveringSubMenu = useElementHover(submenuEl as Ref, { delayLeave: 100 })
 
 const hovering = computed(() => hoveringLink.value || hoveringSubMenu.value)
@@ -21,15 +21,14 @@ const hovering = computed(() => hoveringLink.value || hoveringSubMenu.value)
 
 <template>
   <NavItem>
-    <a
+    <LinkElement
       ref="linkEl" href="javascript:void 0"
-      class="block cursor-pointer break-words border-none color-[currentColor] decoration-none outline-0"
       @click="void 0"
     >
       <div v-if="icon" :class="icon" class="inline-block vertical-text-bottom text-xl" />
       {{ rootText }}
       <div class="i-ri-arrow-drop-down-fill inline-block vertical-text-bottom text-xl" />
-    </a>
+    </LinkElement>
     <Transition name="slideUpIn">
       <DropBoxItem v-show="hovering" ref="submenuEl" :nav-links="props.navLinks" :show-sub-menu="false" />
     </Transition>

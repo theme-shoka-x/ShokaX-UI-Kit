@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import linkElement from '../linkElement.vue'
 import Headline from './Headline.vue'
 
 defineProps<{
@@ -15,12 +16,12 @@ defineProps<{
 <template>
   <div id="brand" class="fixed h-50vh min-h-40 w-full flex flex-col items-center justify-center pl-15 pr-15 pt-12 text-center">
     <template v-if="isHome">
-      <a v-once href="/" rel="start" class="cursor-pointer break-words border-none color-current decoration-none outline-0">
+      <linkElement v-once href="/" rel="start">
         <p class="text-14 line-height-4.8">
           {{ artBoardContent }}
         </p>
         <Headline :content="headlineContent" />
-      </a>
+      </linkElement>
       <p v-once class="meta m-0 flex text-3.5" itemprop="description">
         {{ descriptionContent }}
       </p>
