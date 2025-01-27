@@ -2,6 +2,7 @@
 import type { NavItemType } from './components/navbar/NavTypes'
 import NavBar from './components/navbar/NavBar.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
+import Waves from './components/waves/Waves.vue'
 
 const navlinks: NavItemType[] = [
   {
@@ -42,6 +43,7 @@ const navlinks: NavItemType[] = [
 <template>
   <NavBar :nav-links="navlinks" name="website" :click-toggle-callback="() => void 0" />
   <ToolBar :show-contents-click-callback="() => void 0" />
+  <Waves />
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et maximus dui, eu malesuada sapien. Integer a nunc magna. Cras a nulla nisi. Cras id nisl placerat, molestie ligula at, sagittis sem. Duis et nunc sodales, sodales elit non, consectetur nisl. Quisque at massa cursus, blandit leo eget, congue dolor. Suspendisse quis aliquet nisl, nec rhoncus augue. Nam vitae dolor at ipsum iaculis blandit. Duis maximus felis at odio facilisis, non efficitur mauris efficitur.
 

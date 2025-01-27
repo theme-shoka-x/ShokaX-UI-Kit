@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NavItemType } from './NavTypes'
-import { useWindowScroll } from '@vueuse/core'
+import { useDark, useWindowScroll } from '@vueuse/core'
 import { computed } from 'vue'
 import LeftNavBtn from './LeftNavBtn.vue'
 import MenuBar from './MenuBar.vue'
@@ -29,6 +29,13 @@ const showNav = computed(() => {
     return scrollFlag
   }
 })
+
+const isDark = useDark({
+  selector: 'html',
+  attribute: 'data-theme',
+  valueDark: 'dark',
+  valueLight: 'light',
+})
 </script>
 
 <template>
@@ -38,8 +45,8 @@ const showNav = computed(() => {
         <LeftNavBtn :click-callback="clickToggleCallback" />
         <MenuBar :nav-links="props.navLinks" :name="name" />
         <RightNavBar>
-          <div class="cursor-pointer pb-2.5 pl-2 pr-2 pt-2.5 text-5">
-            <div class="i-ri-sun-line" />
+          <div class="cursor-pointer pb-2.5 pl-2 pr-2 pt-2.5 text-5" @click="isDark = !isDark">
+            <div :class="{ 'i-ri-sun-line': !isDark, 'i-ri-moon-line': isDark }" />
           </div>
         </RightNavBar>
       </div>

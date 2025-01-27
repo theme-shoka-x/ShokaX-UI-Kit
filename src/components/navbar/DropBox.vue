@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NavItemType } from './NavTypes'
 import { useElementHover } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { computed, type Ref, useTemplateRef } from 'vue'
 import DropBoxItem from './DropBoxItem.vue'
 import NavItem from './NavItem.vue'
 
@@ -11,10 +11,10 @@ const props = defineProps<{
   rootText: string
 }>()
 
-const linkEl = ref<HTMLElement | null>(null)
-const submenuEl = ref<HTMLElement | null>(null)
+const linkEl = useTemplateRef('linkEl')
+const submenuEl = useTemplateRef('submenuEl')
 const hoveringLink = useElementHover(linkEl, { delayLeave: 300 })
-const hoveringSubMenu = useElementHover(submenuEl, { delayLeave: 100 })
+const hoveringSubMenu = useElementHover(submenuEl as Ref, { delayLeave: 100 })
 
 const hovering = computed(() => hoveringLink.value || hoveringSubMenu.value)
 </script>

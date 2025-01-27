@@ -19,7 +19,7 @@ const { arrivedState } = useWindowScroll({ throttle: 10 })
   </div>
 </template>
 
-<style lang="css" scoped>
+<style lang="css">
 .tool {
   box-shadow: 0 0 0.5rem #0000001a;
 }
