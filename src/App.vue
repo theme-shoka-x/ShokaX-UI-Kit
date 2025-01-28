@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { NavItemType } from './components/navbar/NavTypes'
 import { provide } from 'vue'
+import DividerLine from './components/DividerLine.vue'
+import Brand from './components/header/Brand.vue'
 import NavBar from './components/navbar/NavBar.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
 import Waves from './components/waves/Waves.vue'
@@ -44,9 +46,12 @@ provide('linkElName', 'a')
 </script>
 
 <template>
+  <Brand :is-home="true" art-board-content="111" headline-content="222" />
   <NavBar :nav-links="navlinks" name="website" :click-toggle-callback="() => void 0" />
   <ToolBar :show-contents-click-callback="() => void 0" />
   <Waves />
+
+  <DividerLine content="111" />
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et maximus dui, eu malesuada sapien. Integer a nunc magna. Cras a nulla nisi. Cras id nisl placerat, molestie ligula at, sagittis sem. Duis et nunc sodales, sodales elit non, consectetur nisl. Quisque at massa cursus, blandit leo eget, congue dolor. Suspendisse quis aliquet nisl, nec rhoncus augue. Nam vitae dolor at ipsum iaculis blandit. Duis maximus felis at odio facilisis, non efficitur mauris efficitur.
 
