@@ -260,7 +260,6 @@ provide('linkElName', 'a')
 </template>
 
 <style>
-@import url('./style.css');
-@import url('./palette.css');
-@import url('./animation.css');
+@import url('./styles/style.css');
+@import url('./styles/palette.css');
 </style>
