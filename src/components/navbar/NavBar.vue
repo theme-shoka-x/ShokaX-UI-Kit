@@ -57,6 +57,9 @@ const isDark = useDark({
 <style lang="css" scoped>
 .nav-bg {
   background-image: var(--nav-bg);
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--grey-9-a1);
+  text-shadow: 0 0 0.0625rem var(--grey-9-a1);
+  color: var(--text-color);
 }
 
 @keyframes slideDownIn {
