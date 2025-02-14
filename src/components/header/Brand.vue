@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import linkElement from '../linkElement.vue'
+import PostMeta from '../index/PostMeta.vue'
+import LinkElement from '../LinkElement.vue'
 import Headline from './Headline.vue'
 
 defineProps<{
@@ -16,26 +17,19 @@ defineProps<{
 <template>
   <div id="brand" class="fixed h-50vh min-h-40 w-full flex flex-col items-center justify-center pl-15 pr-15 pt-12 text-center">
     <template v-if="isHome">
-      <linkElement v-once href="/" rel="start">
+      <LinkElement v-once href="/" rel="start">
         <p class="text-14 line-height-4.8">
           {{ artBoardContent }}
         </p>
         <Headline :content="headlineContent" />
-      </linkElement>
+      </LinkElement>
       <p v-once class="meta m-0 flex text-3.5" itemprop="description">
         {{ descriptionContent }}
       </p>
     </template>
     <template v-else>
       <Headline :content="headlineContent" />
-      <div v-once class="meta m-0 flex text-3.5">
-        <div class="i-ri-calendar-2-line" />
-        <span> {{ date }} </span>
-        <div class="i-ri-quill-pen-line ml-2.5" />
-        <span> {{ words }} </span>
-        <div class="i-ri-time-line ml-2.5" />
-        <span> {{ readTime }}</span>
-      </div>
+      <PostMeta v-if="date && readTime && words" v-once :date="date" :read-time="readTime" :words="words" />
     </template>
   </div>
 </template>

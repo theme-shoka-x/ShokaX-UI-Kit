@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LinkElement from '../linkElement.vue'
+import LinkElement from '../LinkElement.vue'
 import NavItem from './NavItem.vue'
 
 const props = defineProps<{
