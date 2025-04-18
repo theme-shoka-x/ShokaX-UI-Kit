@@ -1,0 +1,31 @@
+{
+  "name": "shokax-components-lib",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "check-types": "vue-tsc -b",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vueuse/core": "^12.6.0",
+    "es-toolkit": "^1.32.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.2.0",
+    "@iconify-json/ri": "^1.2.5",
+    "@unocss/eslint-plugin": "^65.4.3",
+    "@unocss/preset-icons": "^65.4.3",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "eslint": "^9.20.1",
+    "eslint-plugin-format": "^1.0.1",
+    "typescript": "~5.7.3",
+    "unocss": "^65.4.3",
+    "vite": "^6.1.0",
+    "vue-tsc": "^2.2.0"
+  }
+}
