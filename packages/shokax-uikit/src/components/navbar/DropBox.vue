@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import type { NavItemType } from './NavTypes'
 import { useElementHover } from '@vueuse/core'
-import { computed, type Ref, useTemplateRef } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import LinkElement from '../LinkElement.vue'
 import DropBoxItem from './DropBoxItem.vue'
 import NavItem from './NavItem.vue'

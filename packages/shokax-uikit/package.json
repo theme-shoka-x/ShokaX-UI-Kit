@@ -7,7 +7,8 @@
     "dev": "vite",
     "check-types": "vue-tsc -b",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext .ts,.vue ."
   },
   "dependencies": {
     "@vueuse/core": "^12.6.0",
