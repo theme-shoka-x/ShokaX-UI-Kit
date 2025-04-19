@@ -19,4 +19,3 @@ describe('fmtNum', () => {
     expect(() => fmtNum(-100)).toThrow()
   })
 })
-

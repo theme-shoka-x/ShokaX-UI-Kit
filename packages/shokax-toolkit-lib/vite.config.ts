@@ -10,5 +10,5 @@ export default defineConfig({
       fileName: 'shokax-toolkit',
       formats: ['es', 'umd', 'cjs'],
     },
-  },
+  }
 })
