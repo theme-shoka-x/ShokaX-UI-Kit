@@ -20,6 +20,17 @@ interface TagCloudItem {
   color: string
 }
 
+/**
+ * 生成标签云
+ * @param tags 标签列表
+ * @param options 配置项
+ * @param options.minFontSize 最小字体大小
+ * @param options.maxFontSize 最大字体大小
+ * @param options.startColor 起始颜色
+ * @param options.endColor 终止颜色
+ * @param options.limit 最大处理数量
+ * @returns 标签云数据
+ */
 export function generateTagCloud(
   tags: Tag[],
   options: TagCloudOptions,

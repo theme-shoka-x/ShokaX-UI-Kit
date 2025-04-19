@@ -1,5 +1,7 @@
 import type { Post } from './types'
 
+type PostWithDay = Post
+
 export interface ArchiveConfig {
   daily?: boolean
 }
@@ -8,8 +10,13 @@ export interface StructuredPosts {
   [year: number]: Array<PostWithDay[]> & { [month: number]: PostWithDay[] & { day?: Record<number, PostWithDay[]> } }
 }
 
-type PostWithDay = Post
-
+/**
+ * 将文章按日期结构化
+ * @param posts 文章列表
+ * @param config 配置项
+ * @param config.daily 是否按天分组
+ * @returns 结构化的文章列表
+ */
 export function structurePostsByDate(posts: Post[], config: ArchiveConfig = {}): StructuredPosts {
   const grouped: StructuredPosts = {}
 

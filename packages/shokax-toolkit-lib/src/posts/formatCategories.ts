@@ -8,6 +8,13 @@ interface CategoryWithChildren extends Category {
   children: CategoryWithChildren[]
 }
 
+/**
+ * 格式化分类为层级结构
+ * @param categories - 所有分类数组
+ * @param options
+ * @param options.depth - 限制层级深度（默认无限）
+ * @returns 分层结构化的分类数组
+ */
 export function formatCategories(categories: Category[], options: Partial<FormatCategoriesOptions> = {}) {
   const { depth = Infinity } = options
   const categoryMap = new Map<
