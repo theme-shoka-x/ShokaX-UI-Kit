@@ -40,37 +40,37 @@ watch(lrcUrl, async (url) => {
   </div>
 </template>
 
-<style lang="stylus" scoped>
+<style scoped>
 .lrc {
-      max-height: 4rem;
-      margin-top: .3125rem;
-      font-size: $font-size-smallest;
-      position: relative;
-      text-align: center;
-      overflow: hidden;
+  max-height: 4rem;
+  margin-top: 0.3125rem;
+  font-size: var(--font-size-smallest);
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
 
-      .inner {
-        width: 100%;
-        transition: all .5s ease-out;
-      }
+.lrc .inner {
+  width: 100%;
+  transition: all 0.5s ease-out;
+}
 
-      p {
-        font-size: .75rem;
-        color: var(--primary-text);
-        line-height: 1rem!important;
-        height: 1rem!important;
-        padding: 0!important;
-        margin: 0!important;
-        transition: all .5s ease-out;
-        opacity: .3;
-        overflow: hidden;
+.lrc p {
+  font-size: 0.75rem;
+  color: var(--primary-text);
+  line-height: 1rem !important;
+  height: 1rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transition: all 0.5s ease-out;
+  opacity: 0.3;
+  overflow: hidden;
+}
 
-        &.current {
-          opacity: 1;
-          overflow: visible;
-          height: auto!important;
-          min-height: 1rem;
-        }
-      }
-    }
+.lrc p.current {
+  opacity: 1;
+  overflow: visible;
+  height: auto !important;
+  min-height: 1rem;
+}
 </style>

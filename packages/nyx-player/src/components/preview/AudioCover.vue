@@ -19,12 +19,14 @@ const src = computed(() => {
 
 <template>
   <div
-    class="cover relative flex-shrink-0 cursor-pointer before:absolute before:z-1 before:content-empty"
+    class="cover relative flex flex-shrink-0 cursor-pointer items-center justify-center before:absolute before:z-1 before:content-empty"
     :class="{ playing: playingNow }"
   >
-    <div class="disc relative max-h-144px p-6">
+    <div class="disc relative max-h-24 max-w-24 p-6">
       <Transition name="blurx" mode="out-in">
-        <img :key="src" :src="src" alt="music cover" class="pl-6 pr-6">
+        <div :key="src" class="h-6rem w-6rem overflow-hidden rounded-50%">
+          <img :src="src" alt="music cover" class="max-h-full max-w-full">
+        </div>
       </Transition>
     </div>
   </div>

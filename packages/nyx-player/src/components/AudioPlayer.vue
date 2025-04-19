@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
 import { throttle } from 'es-toolkit'
-import { computed, inject, onMounted, ref, watch } from 'vue'
+import { computed, inject, onMounted, useTemplateRef, watch } from 'vue'
 import AudioController from './controller/AudioController.vue'
 import { PlayList } from './metingapi/playlist'
 import { usePlayingStore } from './playingStore'
@@ -14,19 +14,20 @@ const props = defineProps<{
 }>()
 
 const playingStore = usePlayingStore()
+const audioPlayer = useTemplateRef<HTMLAudioElement>('audio')
 
 onMounted(() => {
-  const audioElement = document.querySelector('#audioPlayer') as HTMLAudioElement
-
   watch(() => playingStore.currentId, async () => {
-    if (playingStore.playing) {
-      if (playingStore.mode === 'loop') {
-        audioElement.loop = true
+    if (audioPlayer.value !== null) {
+      if (playingStore.playing) {
+        if (playingStore.mode === 'loop') {
+          audioPlayer.value.loop = true
+        }
+        await audioPlayer.value.play()
       }
-      await audioElement.play()
-    }
-    else {
-      audioElement.pause()
+      else {
+        audioPlayer.value.pause()
+      }
     }
   })
 })
@@ -60,7 +61,7 @@ const src = computed(() => {
   return ''
 })
 
-const target = ref(null)
+const target = useTemplateRef('target')
 
 onClickOutside(target, () => playingStore.showPlayer = false, { ignore: [inject('showBtn'), inject('playBtn')] })
 </script>
@@ -70,10 +71,10 @@ onClickOutside(target, () => playingStore.showPlayer = false, { ignore: [inject(
     <div v-show="playingStore.showPlayer" ref="target" class="player-info border-radius-0.8rem fixed z-9 overflow-hidden rounded-xl">
       <AudioPreview />
       <AudioController />
-      <audio id="audioPlayer" :src="src" :muted="!playingStore.enableVolume" @timeupdate="updateCurrentTime" @canplay="playingStore.currentId++" />
+      <audio ref="audio" :src="src" :muted="!playingStore.enableVolume" @timeupdate="updateCurrentTime" @canplay="playingStore.currentId++" />
       <PlayListTabs />
       <div class="absolute right-4 top-3 cursor-pointer text-3.25 hover:color-[var(--hover-btn)]" @click="playingStore.showPlayer = false">
-        X
+        <div class="i-ri-close-line text-5" />
       </div>
     </div>
   </Transition>

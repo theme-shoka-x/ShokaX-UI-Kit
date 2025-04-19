@@ -21,13 +21,33 @@ const artist = computed(() => {
 </script>
 
 <template>
-  <div class="info ml-2.5 w-full flex flex-col overflow-hidden text-ellipsis p-2.5">
-    <h4 class="m-0 max-h-12 overflow-hidden text-ellipsis p-0">
-      {{ title }}
-    </h4>
-    <span class="text-3"> {{ artist }} </span>
+  <div class="w-full flex flex-col overflow-hidden text-ellipsis">
+    <Transition name="fade" mode="out-in">
+      <h4 :key="title" class="m-0 max-h-12 flex justify-center overflow-hidden text-ellipsis p-0">
+        {{ title }}
+      </h4>
+    </Transition>
+    <Transition name="fade" mode="out-in">
+      <span :key="artist" class="flex justify-center text-3"> {{ artist }} </span>
+    </Transition>
     <Suspense>
       <MusicLRC />
     </Suspense>
   </div>
 </template>
+
+<style lang="css" scoped>
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-enter-active {
+  animation: fadeIn 1s;
+}
+</style>
