@@ -38,7 +38,7 @@ watch(() => playingStore.currentTime, (time) => {
     idx = currentIdx
 
     // 从当前行开始取接下来的 4 行歌词（包括当前行）
-    showLyric.value = lrcRes.value.slice(idx, idx + 4)
+    showLyric.value = lrcRes.value.slice(idx, Math.min(idx + 4, lrcRes.value.length))
   }
 })
 
@@ -52,12 +52,11 @@ watch(() => playingStore.getCurrentPlaylist().getCurrentSong(), () => {
   <div class="lrc">
     <div class="inner">
       <TransitionGroup name="list" tag="ul" class="p-0">
-        <li class="list-none">
-          <p
-            v-for="(lyric, index) in showLyric"
-            :key="lyric.start"
-            :class="{ current: index === lrcIdx }"
-          >
+        <li
+          v-for="(lyric, index) in showLyric" :key="lyric.start"
+          class="list-none"
+        >
+          <p :class="{ current: index === lrcIdx }">
             {{ lyric.text }}
           </p>
         </li>
@@ -83,6 +82,9 @@ watch(() => playingStore.getCurrentPlaylist().getCurrentSong(), () => {
   以便能够正确地计算移动的动画。 */
 .list-leave-active {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .lrc {
