@@ -38,7 +38,6 @@ if (playingStore.playlists.length === 0) {
     playingStore.playlists.push(playlist)
     playlist.parserURL()
     await playlist.fetchPlaylist()
-    // console.log(playlist)
   }))
 }
 

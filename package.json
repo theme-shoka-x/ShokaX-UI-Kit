@@ -25,5 +25,15 @@
   },
   "devDependencies": {
     "turbo": "^2.5.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@latest"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "rolldown",
+      "vue-demi"
+    ]
   }
 }
