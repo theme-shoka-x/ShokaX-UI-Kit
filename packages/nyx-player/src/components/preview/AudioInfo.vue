@@ -5,18 +5,11 @@ import MusicLRC from './info/MusicLRC.vue'
 
 const playingStore = usePlayingStore()
 const title = computed(() => {
-  const currentPlaylist = playingStore.getCurrentPlaylist()
-  if (currentPlaylist && currentPlaylist.getCurrentSong()) {
-    return currentPlaylist.getCurrentSong().name
-  }
-  return ''
+  return playingStore.currentSong?.name ?? ''
 })
+
 const artist = computed(() => {
-  const currentPlaylist = playingStore.getCurrentPlaylist()
-  if (currentPlaylist && currentPlaylist.getCurrentSong()) {
-    return currentPlaylist.getCurrentSong().artist
-  }
-  return ''
+  return playingStore.currentSong?.artist ?? ''
 })
 </script>
 

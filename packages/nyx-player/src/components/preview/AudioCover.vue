@@ -4,16 +4,13 @@ import { usePlayingStore } from '../playingStore'
 
 const playingStore = usePlayingStore()
 const playingNow = ref(playingStore.playing)
+
 watch(() => playingStore.playing, async (playing) => {
   playingNow.value = playing
 })
 
 const src = computed(() => {
-  const currentPlaylist = playingStore.getCurrentPlaylist()
-  if (currentPlaylist && currentPlaylist.getCurrentSong()) {
-    return currentPlaylist.getCurrentSong().pic
-  }
-  return ''
+  return playingStore.currentSong?.pic ?? ''
 })
 </script>
 

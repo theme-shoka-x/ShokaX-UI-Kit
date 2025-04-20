@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { LyricLine } from '../../metingapi/lrc'
-import { computed, ref, watch } from 'vue'
+import type { Song } from '../../metingapi/playlist'
+import { computed, ref, watch, watchEffect } from 'vue'
 import { Lyric } from '../../metingapi/lrc'
 import { usePlayingStore } from '../../playingStore'
 
@@ -9,22 +10,25 @@ const lrcRes = ref([] as LyricLine[])
 
 const playingStore = usePlayingStore()
 
-const lrcUrl = computed(() => {
-  const currentPlaylist = playingStore.getCurrentPlaylist()
-  if (currentPlaylist && currentPlaylist.getCurrentSong()) {
-    return currentPlaylist.getCurrentSong().lrc
-  }
-  return ''
-})
+const lrcUrl = computed(() => playingStore.currentSong?.lrc ?? '')
 
-watch(lrcUrl, async (url) => {
-  if (url) {
+const lrcCache = new WeakMap<Song, Lyric>()
+
+watchEffect(async () => {
+  const url = lrcUrl.value
+  if (url && playingStore.currentSong) {
+    if (lrcCache.has(playingStore.currentSong)) {
+      lrcIdx.value = 0
+      lrcRes.value = lrcCache.get(playingStore.currentSong)?.lyrics ?? []
+      return
+    }
     const lrc = new Lyric(url)
     await lrc.fetchLyric()
     lrc.parseLyric()
     lrcRes.value = lrc.lyrics
+    lrcCache.set(playingStore.currentSong, lrc)
   }
-}, { immediate: true })
+})
 
 const showLyric = ref<LyricLine[]>([])
 let idx = 0
@@ -42,7 +46,7 @@ watch(() => playingStore.currentTime, (time) => {
   }
 })
 
-watch(() => playingStore.getCurrentPlaylist().getCurrentSong(), () => {
+watch(() => playingStore.currentSong?.lrc, () => {
   showLyric.value = []
   lrcIdx.value = 0
 })

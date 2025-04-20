@@ -5,7 +5,7 @@ import { usePlayingStore } from '../playingStore'
 const playingStore = usePlayingStore()
 
 const playlists = playingStore.playlists
-const viewPlaylistFlag = ref(playingStore.currentPlaylist)
+const viewPlaylistFlag = ref(playingStore.currentPlaylistIndex)
 const viewPlaylist = computed(() => viewPlaylistFlag)
 const percentage = ref(0)
 
@@ -18,8 +18,10 @@ onMounted(() => {
 
 function playSong(playlistIdx: number, songIdx: number) {
   playingStore.currentTime = 0
-  playingStore.currentPlaylist = playlistIdx
-  playingStore.getCurrentPlaylist().index = songIdx
+  playingStore.setCurrentPlaylist(playlistIdx)
+  if (playingStore.currentPlaylist) {
+    playingStore.currentPlaylist.index = songIdx
+  }
 }
 
 function formatTime(time: number) {
@@ -59,7 +61,7 @@ watch(() => playingStore.currentTime, () => {
       <div v-for="playlist in playlists" :key="playlist.name">
         <ol v-if="playlist.sIndex === viewPlaylist.value">
           <li
-            v-for="(song, sIndex) in playlist.playlist" :key="song.name" :class="{ current: playlist.index === sIndex && playingStore.currentPlaylist === viewPlaylist.value }"
+            v-for="(song, sIndex) in playlist.playlist" :key="song.name" :class="{ current: playlist.index === sIndex && playingStore.currentPlaylistIndex === viewPlaylist.value }"
             @click="playSong(playlist.sIndex, sIndex)"
           >
             <span class="info">

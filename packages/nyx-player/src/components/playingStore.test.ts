@@ -62,7 +62,7 @@ describe('usePlayingStore', () => {
     expect(store.currentId).toBe(42)
 
     store.setCurrentPlaylist(1)
-    expect(store.currentPlaylist).toBe(1)
+    expect(store.currentPlaylistIndex).toBe(1)
   })
 
   it('getCurrentPlaylist returns the correct playlist', () => {
@@ -70,7 +70,7 @@ describe('usePlayingStore', () => {
     const playlist = new PlayList('https://example.com', 'Test Playlist')
     store.playlists = [playlist]
     store.setCurrentPlaylist(0)
-    expect(store.getCurrentPlaylist()).toEqual(playlist)
+    expect(store.currentPlaylist).toEqual(playlist)
   })
 })
 

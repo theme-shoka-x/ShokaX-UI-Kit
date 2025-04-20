@@ -38,6 +38,7 @@ if (playingStore.playlists.length === 0) {
     playingStore.playlists.push(playlist)
     playlist.parserURL()
     await playlist.fetchPlaylist()
+    // console.log(playlist)
   }))
 }
 
@@ -54,11 +55,7 @@ const updateCurrentTime = throttle((event: Event) => {
 }, 250)
 
 const src = computed(() => {
-  const currentPlaylist = playingStore.getCurrentPlaylist()
-  if (currentPlaylist && currentPlaylist.getCurrentSong()) {
-    return currentPlaylist.getCurrentSong().url
-  }
-  return ''
+  return playingStore.currentSong?.url ?? ''
 })
 
 const target = useTemplateRef('target')

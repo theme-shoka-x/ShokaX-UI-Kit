@@ -1,3 +1,4 @@
+import type { Song } from './metingapi/playlist'
 import { destr } from 'destr'
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
@@ -21,7 +22,7 @@ export const usePlayingStore = defineStore('playing', {
       currentTime: 0,
       songDuration: 0,
       currentId: 0,
-      currentPlaylist: 0,
+      currentPlaylistIndex: 0,
       playlists: [] as PlayList[],
       mode: 'order',
       enableVolume: true,
@@ -53,10 +54,21 @@ export const usePlayingStore = defineStore('playing', {
       this.currentId = id
     },
     setCurrentPlaylist(playlistIdx: number) {
-      this.currentPlaylist = playlistIdx
-    },
-    getCurrentPlaylist() {
-      return this.playlists[this.currentPlaylist]
+      this.currentPlaylistIndex = playlistIdx
     },
   },
+  getters: {
+    currentPlaylist(state): PlayList | null {
+      return state.playlists[state.currentPlaylistIndex] ?? null
+    },
+    currentSong(state): Song | null {
+      const playlist = state.playlists[state.currentPlaylistIndex]
+      return playlist?.getCurrentSong?.() ?? null
+    },
+    currentPlaylists(state): PlayList[] | null {
+      return state.playlists ?? null
+    }
+  },
 })
+
+export type PlayingStore = ReturnType<typeof usePlayingStore>
