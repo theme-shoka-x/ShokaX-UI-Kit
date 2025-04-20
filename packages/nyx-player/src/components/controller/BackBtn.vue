@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PlayList } from '../metingapi/playlist'
 import { usePlayingStore } from '../playingStore'
 
 const playingStore = usePlayingStore()
@@ -6,12 +7,12 @@ const playingStore = usePlayingStore()
 async function backward() {
   playingStore.currentTime = 0
   if (playingStore.mode === 'order') {
-    playingStore.getCurrentPlaylist().getPrevSong()
+    playingStore.currentPlaylist?.getPrevSong()
   }
   else {
-    const plist = playingStore.getCurrentPlaylist()
+    const plist = playingStore.currentPlaylist as PlayList
     if (plist.index === plist.lastIdx) {
-      playingStore.getCurrentPlaylist().getPrevSong()
+      playingStore.currentPlaylist?.getPrevSong()
     }
     else {
       plist.index = plist.lastIdx

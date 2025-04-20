@@ -7,13 +7,13 @@ const playingStore = usePlayingStore()
 async function forward() {
   playingStore.currentTime = 0
   if (playingStore.mode === 'order') {
-    playingStore.getCurrentPlaylist().getNextSong()
+    playingStore.currentPlaylist?.getNextSong()
   }
   else if (playingStore.mode === 'random') {
-    playingStore.getCurrentPlaylist().getRandSong()
+    playingStore.currentPlaylist?.getRandSong()
   }
   else {
-    playingStore.getCurrentPlaylist().getCurrentSong()
+    playingStore.currentPlaylist?.getCurrentSong()
   }
 }
 

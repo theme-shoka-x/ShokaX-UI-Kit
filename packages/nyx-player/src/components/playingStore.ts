@@ -67,7 +67,7 @@ export const usePlayingStore = defineStore('playing', {
     },
     currentPlaylists(state): PlayList[] | null {
       return state.playlists ?? null
-    }
+    },
   },
 })
 
