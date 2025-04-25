@@ -24,7 +24,15 @@ const artist = computed(() => {
       <span :key="artist" class="flex justify-center text-3"> {{ artist }} </span>
     </Transition>
     <Suspense>
-      <MusicLRC />
+      <template #default>
+        <MusicLRC />
+      </template>
+
+      <template #fallback>
+        <div class="flex justify-center text-3">
+          Loading...
+        </div>
+      </template>
     </Suspense>
   </div>
 </template>

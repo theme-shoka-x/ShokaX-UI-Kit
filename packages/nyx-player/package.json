@@ -19,7 +19,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode production",
     "check-types": "vue-tsc -b",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.vue --fix",
     "test": "vitest run",
@@ -31,9 +31,10 @@
     "@vue/test-utils": "^2.4.6",
     "@vueuse/core": "^13.1.0",
     "destr": "^2.0.5",
-    "es-toolkit": "^1.35.0",
+    "es-toolkit": "^1.36.0",
     "pinia": "^3.0.2",
     "pinia-plugin-persistedstate": "^4.2.0",
+    "rollup-plugin-visualizer": "^5.14.0",
     "stylus": "^0.64.0",
     "unocss": "^66.0.0",
     "vue": "^3.5.13"
@@ -44,11 +45,11 @@
     "@unocss/preset-icons": "^66.0.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
-    "eslint": "^9.25.0",
+    "eslint": "^9.25.1",
     "eslint-plugin-format": "^1.0.1",
     "typescript": "~5.8.3",
-    "vite": "^6.3.2",
+    "vite": "^6.3.3",
     "vite-plugin-dts": "^4.5.3",
-    "vue-tsc": "^2.2.8"
+    "vue-tsc": "^2.2.10"
   }
 }

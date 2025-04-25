@@ -70,10 +70,13 @@ watch(() => playingStore.currentSong?.lrc, () => {
 </template>
 
 <style scoped>
-.list-move, /* 对移动中的元素应用的过渡 */
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.6s ease;
+}
+
+.list-move {
+  transition: all 0.3s ease;
 }
 
 .list-enter-from,
@@ -88,6 +91,7 @@ watch(() => playingStore.currentSong?.lrc, () => {
   position: absolute;
   display: flex;
   justify-content: center;
+  align-items: first;
   width: 100%;
 }
 

@@ -10,6 +10,7 @@ const viewPlaylist = computed(() => viewPlaylistFlag)
 const percentage = ref(0)
 
 const navTitles = ref([] as string[])
+
 onMounted(() => {
   playingStore.playlists.forEach((playlist) => {
     navTitles.value.push(playlist.name)
@@ -45,12 +46,14 @@ watch(() => playingStore.currentTime, () => {
 
 <template>
   <div class="tabs relative block">
-    <div class="nav h-8.75 text-3">
+    <div class="nav h-[2.6875rem] border-[0.0625rem] border-b border-[var(--player-background)]">
       <ul class="flex overflow-x-auto whitespace-nowrap p-0">
         <li
           v-for="(title, index) in navTitles"
-          :key="title" class="relative m-0 inline-block cursor-pointer border-none"
-          :data-index="index" :class="{ active: index === viewPlaylist.value }"
+          :key="title"
+          class="relative m-0 inline-block cursor-pointer border-none p-[0.3125rem_1.25rem]"
+          :data-index="index"
+          :class="{ active: index === viewPlaylist.value }"
           @click="viewPlaylistFlag = index"
         >
           {{ title }}
@@ -59,17 +62,26 @@ watch(() => playingStore.currentTime, () => {
     </div>
     <TransitionGroup name="fade">
       <div v-for="playlist in playlists" :key="playlist.name">
-        <ol v-if="playlist.sIndex === viewPlaylist.value">
+        <ol
+          v-if="playlist.sIndex === viewPlaylist.value"
+          class="relative m-[0.625rem_0_0] h-[12.5rem] list-none overflow-y-auto p-[0.3125rem_0] text-[0.8125em]"
+        >
           <li
-            v-for="(song, sIndex) in playlist.playlist" :key="song.name" :class="{ current: playlist.index === sIndex && playingStore.currentPlaylistIndex === viewPlaylist.value }"
+            v-for="(song, sIndex) in playlist.playlist"
+            :key="song.name"
+            class="relative h-[2rem] flex cursor-pointer overflow-hidden p-[0.3125rem_0.9375rem_0.3125rem_1.5625rem] hover:bg-[var(--player-background)]"
+            :class="{
+              current: playlist.index === sIndex && playingStore.currentPlaylistIndex === viewPlaylist.value,
+              error: false, // Assuming 'error' class logic needs implementation if required
+            }"
             @click="playSong(playlist.sIndex, sIndex)"
           >
-            <span class="info">
-              <span class="name">{{ song.name }}</span>
-              <span class="artist">{{ song.artist }}</span>
+            <span class="info block w-full" :class="{ 'pr-[5rem] select-none': playlist.index === sIndex && playingStore.currentPlaylistIndex === viewPlaylist.value }">
+              <span class="name float-left">{{ song.name }}</span>
+              <span class="artist float-right ml-[0.625rem] text-[var(--secondary-text)]" :class="{ hidden: playlist.index === sIndex && playingStore.currentPlaylistIndex === viewPlaylist.value }">{{ song.artist }}</span>
             </span>
-            <div class="progress" :data-dtime="songDTime" :data-ptime="songPTime">
-              <div class="bar" :style="{ width: `${percentage}%` }" />
+            <div v-if="playlist.index === sIndex && playingStore.currentPlaylistIndex === viewPlaylist.value" class="progress" :data-dtime="songDTime" :data-ptime="songPTime">
+              <div class="bar absolute left-0 top-0 h-full rounded-[0.8125em] bg-[var(--primary-color-a)] transition-width duration-250 ease-linear" :style="{ width: `${percentage}%` }" />
             </div>
           </li>
         </ol>
@@ -78,12 +90,11 @@ watch(() => playingStore.currentTime, () => {
   </div>
 </template>
 
-<style lang="stylus" scoped>
+<style scoped>
 @keyframes fadeIn {
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
@@ -93,145 +104,74 @@ watch(() => playingStore.currentTime, () => {
   animation: fadeIn 0.75s;
 }
 
-.tabs {
+.tabs .nav li::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  top: 2em;
+  bottom: 0;
+  transition: all 0.2s ease-in-out;
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  border-bottom: 0.125rem solid transparent;
+}
 
-  .nav {
-    border-bottom: .0625rem solid var(--player-background);
-    height: 2.6875rem;
-
-    li {
-      padding: .3125rem 1.25rem;
-
-      &::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        right: 50%;
-        top: 2em;
-        bottom: 0;
-        transition: all .2s ease-in-out;
-        width: auto;
-        height: auto;
-        background: none;
-        border-radius: 0;
-        border-bottom: .125rem solid transparent;
-      }
-
-      &.active::before {
-        border-bottom-color: var(--primary-color);
-        left: 0;
-        right: 0;
-      }
-    }
-  }
+.tabs .nav li.active::before {
+  border-bottom-color: var(--primary-color);
+  left: 0;
+  right: 0;
 }
 
 ol {
-    font-size: 0.8125em;
-    padding: .3125rem 0;
-    margin: .625rem 0 0;
-    height: 12.5rem;
-    overflow-x: scroll;
-    counter-reset: counter;
-    position: relative;
+  counter-reset: counter;
+}
 
-    &::-webkit-scrollbar {
-      width: .1875rem;
-      height: .1875rem;
-    }
+ol::-webkit-scrollbar {
+  width: 0.1875rem;
+  height: 0.1875rem;
+}
 
-    >li {
-      display: flex;
-      padding: .3125rem .9375rem .3125rem 1.5625rem;
-      cursor: pointer;
-      height: 2rem;
-      overflow: hidden;
+ol > li::before {
+  content: counter(counter);
+  counter-increment: counter;
+  position: relative;
+  margin-left: -1.25rem;
+  width: 1.875rem;
+  text-align: right;
+  padding-right: 0.3125rem;
+  color: var(--secondary-text);
+  line-height: inherit;
+  flex-shrink: 0;
+}
 
-      &.error {
-        opacity: .5;
-        text-decoration-line: line-through;
-      }
+ol > li:hover::before {
+  color: var(--primary-color);
+}
 
-      &::before {
-        height: auto;
-        background: 0 0!important;
-        border: none!important;
-        position: relative;
-        top: 0!important;
-        left: 0!important;
-        font-size: inherit;
-        line-height: inherit;
-        margin-left: -1.25rem;
-        width: 1.875rem;
-        counter-increment: counter;
-        content: counter(counter);
-        text-align: right;
-        padding-right: .3125rem;
-        color: var(--secondary-text);
-      }
+ol > li.current {
+  color: var(--primary-color);
+}
 
-      .info {
-        display: block;
-        width: 100%;
+ol > li.current::before {
+  color: currentColor;
+}
 
-        span {
-          &:nth-child(1) {
-            float: left;
-          }
-          &:nth-child(2) {
-            float: right;
-            margin-left: .625rem;
-            color: var(--secondary-text);
-          }
-        }
-      }
+ol > li.current .progress::before {
+  content: attr(data-ptime) ' / ' attr(data-dtime);
+  color: var(--secondary-text);
+  position: absolute;
+  right: 0;
+  padding: 0 0.3rem;
+  z-index: 1;
+  line-height: 2rem;
+  pointer-events: none;
+}
 
-      &.current {
-        color: var(--primary-color);
-        position: relative;
-
-        &::before {
-          color: currentColor;
-        }
-
-        .progress {
-          .bar {
-            position: absolute;
-            height: 100%;
-            background-color: var(--primary-color-a);
-            top: 0;
-            left: 0;
-            border-radius: 0.8125em;
-            transition: width 0.25s;
-          }
-
-          &::before {
-            content: attr(data-ptime) " / " attr(data-dtime);
-            color: var(--secondary-text);
-            position: absolute;
-            right: 0;
-            padding: 0 .3rem;
-          }
-        }
-
-        .info {
-          padding-right: 5rem;
-          user-select: none;
-
-          span {
-            &:nth-child(2) {
-              display: none;
-            }
-          }
-        }
-      }
-
-      &:hover {
-        background-color: var(--player-background);
-        &::before {
-          color: var(--primary-color);
-        }
-      }
-    }
-  }
+ol > li.error {
+  opacity: 0.5;
+  text-decoration-line: line-through;
+}
 </style>

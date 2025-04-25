@@ -1,12 +1,5 @@
+import type { Song } from '../audioType'
 import { METING_API } from './constants'
-
-export interface Song {
-  name: string
-  artist: string
-  url: string
-  pic: string
-  lrc: string
-}
 
 export type APIResponse = Song
 

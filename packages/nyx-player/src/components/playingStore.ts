@@ -5,7 +5,7 @@ import { reactive } from 'vue'
 import { PlayList } from './metingapi/playlist'
 
 export function parse(text: string) {
-  const res = destr(text) as any
+  const res = destr(text) as PlayingStore
   res.playlists = res.playlists.map((playlist: any) => {
     const pl = new PlayList()
     Object.assign(pl, playlist)
