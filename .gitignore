@@ -27,3 +27,5 @@ pnpm-lock.yaml
 .turbo
 coverage
 stats.html
+playwright-report
+test-results

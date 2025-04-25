@@ -1,57 +1,111 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import type { Preset } from './presets'
-import { useStyleTag } from '@vueuse/core'
-import { onMounted, provide, watch } from 'vue'
+import { onMounted, provide, ref, useCssVars, watch } from 'vue'
 import AudioPlayer from './components/AudioPlayer.vue'
 import { usePlayingStore } from './components/playingStore'
-import { presets } from './presets'
+import { nyxPreset, presets } from './presets'
 
 const props = defineProps<{
   urls: { url: string, name: string }[]
-  showBtn: string
-  playBtn?: string
+  showBtn: string | Ref | HTMLElement | null
+  playBtn?: string | Ref | HTMLElement | null
   darkModeTarget?: string
   preset?: string
   styles?: Preset
 }>()
 const playingStore = usePlayingStore()
-provide('showBtn', props.showBtn)
-provide('playBtn', props.playBtn)
+
+// 创建 Ref 来存储元素
+const showBtnEl = ref<HTMLElement | null>(null)
+const playBtnEl = ref<HTMLElement | null>(null)
+
+// 提供 Ref
+provide('showBtnEl', showBtnEl)
+provide('playBtnEl', playBtnEl)
+
+function setupShowBtn(el: HTMLElement) {
+  showBtnEl.value = el // 更新 Ref
+  el.addEventListener('click', () => {
+    playingStore.showPlayer = !playingStore.showPlayer
+  })
+  watch(() => playingStore.showPlayer, () => {
+    el.dataset.show = playingStore.showPlayer ? 'true' : 'false'
+  }, { immediate: true })
+}
+
+function setupPlayBtn(el: HTMLElement) {
+  playBtnEl.value = el // 更新 Ref
+  el.addEventListener('click', () => {
+    playingStore.playing = !playingStore.playing
+    el.dataset.play = playingStore.playing ? 'true' : 'false'
+  })
+  watch(() => playingStore.playing, () => {
+    el.dataset.play = playingStore.playing ? 'true' : 'false'
+  }, { immediate: true })
+}
 
 onMounted(() => {
-  const showBtnEl = document.querySelector(props.showBtn) as HTMLElement
-
-  if (showBtnEl) {
-    showBtnEl.addEventListener('click', () => {
-      playingStore.showPlayer = !playingStore.showPlayer
-    })
-
-    watch(() => playingStore.showPlayer, () => {
-      showBtnEl.dataset.show = playingStore.showPlayer ? 'true' : 'false'
+  // showBtn setup
+  if (typeof props.showBtn === 'string') {
+    const el = document.querySelector(props.showBtn) as HTMLElement
+    if (el) {
+      setupShowBtn(el)
+    }
+    else {
+      throw new Error('showBtn not found')
+    }
+  }
+  else if (props.showBtn && 'value' in props.showBtn && props.showBtn.value instanceof HTMLElement) {
+    // 如果是 Ref<HTMLElement>
+    watch(props.showBtn, (el) => {
+      if (el)
+        setupShowBtn(el)
     }, { immediate: true })
   }
+  else if (props.showBtn instanceof HTMLElement) {
+    // 如果直接是 HTMLElement
+    setupShowBtn(props.showBtn)
+  }
   else {
-    throw new Error('showBtn not found')
+    // 兼容旧的 Ref<any> 或其他情况，尝试监听
+    watch(() => props.showBtn, (el) => {
+      if (el instanceof HTMLElement) {
+        setupShowBtn(el)
+      }
+    }, { once: true })
   }
 
-  if (props.playBtn) {
-    const playBtnEl = document.querySelector(props.playBtn) as HTMLElement
-    if (playBtnEl) {
-      playBtnEl.addEventListener('click', () => {
-        playingStore.playing = !playingStore.playing
-        playingStore.currentId++
-        playBtnEl.dataset.play = playingStore.playing ? 'true' : 'false'
-      })
-
-      watch(() => playingStore.playing, () => {
-        playBtnEl.dataset.play = playingStore.playing ? 'true' : 'false'
-      }, { immediate: true })
+  if (typeof props.playBtn === 'string') {
+    const el = document.querySelector(props.playBtn) as HTMLElement
+    if (el) {
+      setupPlayBtn(el)
     }
     else {
       throw new Error('playBtn not found')
     }
   }
-})
+  else if (props.playBtn && 'value' in props.playBtn && props.playBtn.value instanceof HTMLElement) {
+    // 如果是 Ref<HTMLElement>
+    watch(props.playBtn, (el) => {
+      if (el)
+        setupPlayBtn(el)
+    }, { immediate: true })
+  }
+  else if (props.playBtn instanceof HTMLElement) {
+    // 如果直接是 HTMLElement
+    setupPlayBtn(props.playBtn)
+  }
+  else {
+    // 兼容旧的 Ref<any> 或其他情况，尝试监听
+    watch(() => props.playBtn, (el) => {
+      if (el instanceof HTMLElement) {
+        setupPlayBtn(el)
+      }
+    }, { once: true })
+  }
+},
+)
 
 const stylesPresent = props.styles || presets.nyx
 
@@ -65,44 +119,35 @@ if (props.preset) {
   }
 }
 
-const colorsLight
-= `{
-  --player-border: ${stylesPresent.styles.light.playerBorder};
-  --close-btn: ${stylesPresent.styles.light.closeBtn};
-  --secondary-text: ${stylesPresent.styles.light.secondaryText};
-  --primary-text: ${stylesPresent.styles.light.primaryText};
-  --player-background: ${stylesPresent.styles.light.playerBackground};
-  --playlist-line: ${stylesPresent.styles.light.playListLine};
-  --hover-btn: ${stylesPresent.styles.light.hoverBtn};
-  --box-bg-shadow: ${stylesPresent.styles.light.boxBackgroundShadow};
-  --primary-color: rgb(${stylesPresent.styles.light.primaryColor});
-  --primary-color-a: rgba(${stylesPresent.styles.light.primaryColor},0.3);
-}`
+const currentMode = ref<'light' | 'dark'>('light')
 
-const colorsDark
-= `{
-  --player-border: ${stylesPresent.styles.dark.playerBorder}; 
-  --close-btn: ${stylesPresent.styles.dark.closeBtn};
-  --secondary-text: ${stylesPresent.styles.dark.secondaryText};
-  --primary-text: ${stylesPresent.styles.dark.primaryText};
-  --player-background: ${stylesPresent.styles.dark.playerBackground};
-  --playlist-line: ${stylesPresent.styles.dark.playListLine};
-  --hover-btn: ${stylesPresent.styles.dark.hoverBtn};
-  --box-bg-shadow: ${stylesPresent.styles.dark.boxBackgroundShadow};
-  --primary-color: rgb(${stylesPresent.styles.dark.primaryColor});
-  --primary-color-a: rgba(${stylesPresent.styles.dark.primaryColor},0.3);
-}`
-
-if (props.darkModeTarget) {
-  if (props.darkModeTarget === 'auto') {
-    useStyleTag(`@media(prefers-color-scheme:light){html${colorsLight}}`)
-    useStyleTag(`@media(prefers-color-scheme:dark){html${colorsDark}}`)
-  }
-  else {
-    useStyleTag(`html${colorsLight}`)
-    useStyleTag(`${props.darkModeTarget}${colorsDark}`)
-  }
+if (props.darkModeTarget === 'auto') {
+  const media = globalThis.matchMedia('(prefers-color-scheme: dark)')
+  currentMode.value = media.matches ? 'dark' : 'light'
+  media.addEventListener('change', (e) => {
+    currentMode.value = e.matches ? 'dark' : 'light'
+  })
 }
+else {
+  currentMode.value = 'light'
+}
+
+useCssVars(() => {
+  const theme = stylesPresent.styles[currentMode.value]
+  const defaultTheme = nyxPreset.styles[currentMode.value]
+  return {
+    'player-border': theme.playerBorder || defaultTheme.playerBorder,
+    'close-btn': theme.closeBtn || defaultTheme.closeBtn,
+    'secondary-text': theme.secondaryText || defaultTheme.secondaryText,
+    'primary-text': theme.primaryText || defaultTheme.primaryText,
+    'player-background': theme.playerBackground || defaultTheme.playerBackground,
+    'playlist-line': theme.playListLine || defaultTheme.playListLine,
+    'hover-btn': theme.hoverBtn || defaultTheme.hoverBtn,
+    'box-bg-shadow': theme.boxBackgroundShadow || defaultTheme.boxBackgroundShadow,
+    'primary-color': `rgb(${theme.primaryColor})` || `rgb(${defaultTheme.primaryColor})`,
+    'primary-color-a': `rgba(${theme.primaryColor}, 0.3)` || `rgba(${defaultTheme.primaryColor}, 0.3)`,
+  }
+})
 </script>
 
 <template>

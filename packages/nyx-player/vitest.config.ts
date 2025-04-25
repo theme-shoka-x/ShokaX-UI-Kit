@@ -2,7 +2,6 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    workspace: ['packages/*'],
     coverage: {
       thresholds: {
         functions: 90,
@@ -11,6 +10,6 @@ export default defineConfig({
         statements: 90,
       },
     },
-    exclude: ['packages/*/tests/e2e/**'],
+    exclude: ['tests/e2e/**', "node_modules/**", 'dist/**'],
   },
 })

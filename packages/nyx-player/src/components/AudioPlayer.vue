@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { throttle } from 'es-toolkit'
 import { computed, inject, onMounted, useTemplateRef, watch } from 'vue'
@@ -17,7 +18,7 @@ const playingStore = usePlayingStore()
 const audioPlayer = useTemplateRef<HTMLAudioElement>('audio')
 
 onMounted(() => {
-  watch(() => playingStore.currentId, async () => {
+  watch(() => playingStore.playing, async () => {
     if (audioPlayer.value !== null) {
       if (playingStore.playing) {
         if (playingStore.mode === 'loop') {
@@ -59,7 +60,12 @@ const src = computed(() => {
 
 const target = useTemplateRef('target')
 
-onClickOutside(target, () => playingStore.showPlayer = false, { ignore: [inject('showBtn'), inject('playBtn')] })
+// 注入元素 Ref
+const showBtnEl = inject<Ref<HTMLElement | null>>('showBtnEl')
+const playBtnEl = inject<Ref<HTMLElement | null>>('playBtnEl')
+
+// 在 onClickOutside 的 ignore 中使用注入的 Ref
+onClickOutside(target, () => playingStore.showPlayer = false, { ignore: [showBtnEl, playBtnEl] })
 </script>
 
 <template>

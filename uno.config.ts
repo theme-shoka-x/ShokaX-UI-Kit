@@ -1,9 +1,9 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss'
+import { defineConfig, presetAttributify, presetIcons, presetWind3 } from 'unocss'
 
 export default defineConfig({
   presets: [
     presetAttributify(),
-    presetUno(),
+    presetWind3(),
     presetIcons({
       collections: {
         ri: () => import('@iconify-json/ri/icons.json').then(i => i.default),

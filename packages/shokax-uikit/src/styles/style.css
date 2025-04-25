@@ -1,25 +1,6 @@
-* {
-  box-sizing: border-box;
-  font-size: 1em;
-  line-height: 2;
-}
-
 a:before,
 a:after {
   transition: all 0.4s ease-in-out;
-}
-
-*,
-:before,
-:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  height: 100%;
 }
 
 body {

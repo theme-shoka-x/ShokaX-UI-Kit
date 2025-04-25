@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.vue . --fix",
-    "test": "echo 'No test specified' && exit 0"
+    "test": "echo 'No test specified' && exit 0",
+    "test:e2e": "echo 'No test specified' && exit 0"
   },
   "dependencies": {
     "@vueuse/core": "^13.1.0",

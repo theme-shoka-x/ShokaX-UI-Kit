@@ -17,7 +17,18 @@ export interface Preset {
   }
 }
 
-export const nyxPreset: Preset = {
+type RequiredColorsConfig = {
+  [K in keyof colorsConfig]-?: string
+}
+
+export interface StrictPreset {
+  styles: {
+    light: RequiredColorsConfig
+    dark: RequiredColorsConfig
+  }
+}
+
+export const nyxPreset: StrictPreset = {
   styles: {
     light: {
       playerBorder: '#fdfdfd',
@@ -44,7 +55,7 @@ export const nyxPreset: Preset = {
   },
 }
 
-export const shokaxPreset: Preset = {
+export const shokaxPreset: StrictPreset = {
   styles: {
     light: {
       playerBorder: '#fdfdfd',
