@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { Song } from '../../audioType'
 import type { LyricLine } from '../../metingapi/lrc'
-import type { Song } from '../../metingapi/playlist'
 import { computed, ref, watch, watchEffect } from 'vue'
 import { Lyric } from '../../metingapi/lrc'
 import { usePlayingStore } from '../../playingStore'

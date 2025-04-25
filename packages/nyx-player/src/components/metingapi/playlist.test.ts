@@ -1,4 +1,4 @@
-import type { Song } from './playlist'
+import type { Song } from '../audioType'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { METING_API } from './constants'
 import { PlayList } from './playlist'

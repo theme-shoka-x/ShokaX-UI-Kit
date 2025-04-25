@@ -1,4 +1,4 @@
-import type { Song } from './metingapi/playlist'
+import type { Song } from './audioType'
 import { destr } from 'destr'
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
