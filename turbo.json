@@ -15,7 +15,7 @@
       "dependsOn": ["^test"]
     },
     "test:e2e": {
-      "dependsOn": ["^test:e2e", "build"]
+      "dependsOn": ["^test:e2e", "test"]
     },
     "dev": {
       "persistent": true,
