@@ -53,8 +53,8 @@ watch(() => playingStore.currentSong?.lrc, () => {
 </script>
 
 <template>
-  <div class="lrc">
-    <div class="inner">
+  <div class="lrc relative mt-1.25 max-h-16 overflow-hidden text-center text-3">
+    <div class="inner w-full transition-all duration-500 transition-ease-out">
       <TransitionGroup name="list" tag="ul" class="p-0">
         <li
           v-for="(lyric, index) in showLyric" :key="lyric.start"
@@ -85,28 +85,12 @@ watch(() => playingStore.currentSong?.lrc, () => {
   transform: translateX(30px);
 }
 
-/* 确保将离开的元素从布局流中删除
-  以便能够正确地计算移动的动画。 */
 .list-leave-active {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: first;
   width: 100%;
-}
-
-.lrc {
-  max-height: 4rem;
-  margin-top: 0.3125rem;
-  font-size: var(--font-size-smallest);
-  position: relative;
-  text-align: center;
-  overflow: hidden;
-}
-
-.lrc .inner {
-  width: 100%;
-  transition: all 0.5s ease-out;
 }
 
 .lrc p {

@@ -35,7 +35,6 @@ export const usePlayingStore = defineStore('playing', {
       serialize: JSON.stringify,
     },
     storage: globalThis.sessionStorage,
-    debug: true,
   },
   actions: {
     paused() {

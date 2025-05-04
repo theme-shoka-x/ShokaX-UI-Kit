@@ -8,7 +8,7 @@ export default defineConfig({
       entry: './src/index.ts',
       name: 'shokax-toolkit',
       fileName: 'shokax-toolkit',
-      formats: ['es', 'umd', 'cjs'],
+      formats: ['es'],
     },
   },
 })

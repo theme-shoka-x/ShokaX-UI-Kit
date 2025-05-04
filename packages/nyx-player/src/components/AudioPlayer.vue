@@ -18,7 +18,7 @@ const playingStore = usePlayingStore()
 const audioPlayer = useTemplateRef<HTMLAudioElement>('audio')
 
 onMounted(() => {
-  watch(() => playingStore.playing, async () => {
+  watch(() => playingStore.currentId, async () => {
     if (audioPlayer.value !== null) {
       if (playingStore.playing) {
         if (playingStore.mode === 'loop') {

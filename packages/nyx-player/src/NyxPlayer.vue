@@ -38,6 +38,7 @@ function setupPlayBtn(el: HTMLElement) {
   playBtnEl.value = el // 更新 Ref
   el.addEventListener('click', () => {
     playingStore.playing = !playingStore.playing
+    playingStore.currentId++
     el.dataset.play = playingStore.playing ? 'true' : 'false'
   })
   watch(() => playingStore.playing, () => {

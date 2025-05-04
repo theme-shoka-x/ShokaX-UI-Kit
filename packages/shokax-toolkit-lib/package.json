@@ -6,7 +6,8 @@
   "sideEffects": false,
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "check-types": "tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest run --coverage",
     "test:e2e": "echo 'No test specified' && exit 0",

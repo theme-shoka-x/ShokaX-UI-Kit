@@ -1,7 +1,7 @@
 {
   "name": "nyx-player",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "author": "zkz098",
   "license": "AGPL-3.0-or-later",
   "sideEffects": true,
@@ -9,7 +9,7 @@
     ".": {
       "types": "./dist/entries/init.d.ts",
       "import": "./dist/nyx-player.js",
-      "browser": "./dist/nyx-player.umd.cjs",
+      "browser": "./dist/nyx-player.js",
       "require": "./dist/nyx-player.umd.cjs"
     },
     "./component": {
