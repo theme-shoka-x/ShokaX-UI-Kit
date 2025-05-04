@@ -1,6 +1,6 @@
 import type { PluginOption } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// import { visualizer } from 'rollup-plugin-visualizer'
+import { visualizer } from 'rollup-plugin-visualizer'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
@@ -13,9 +13,9 @@ export default defineConfig(({ mode }) => {
         vue(),
         UnoCSS(),
         dts({ tsconfigPath: './tsconfig.app.json' }) as PluginOption,
-        // visualizer({
-        //   open: true,
-        // }) as PluginOption,
+        visualizer({
+          open: true,
+        }) as PluginOption,
       ],
     build: {
       lib: {

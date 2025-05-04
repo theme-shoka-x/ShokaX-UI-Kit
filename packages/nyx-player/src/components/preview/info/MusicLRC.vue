@@ -1,32 +1,34 @@
 <script setup lang="ts">
-import type { Song } from '../../audioType'
 import type { LyricLine } from '../../metingapi/lrc'
-import { computed, ref, watch, watchEffect } from 'vue'
-import { Lyric } from '../../metingapi/lrc'
+import { useFetch } from '@vueuse/core'
+import { computed, ref, watch } from 'vue'
+import { MaximumMap, parseLyric } from '../../metingapi/lrc'
 import { usePlayingStore } from '../../playingStore'
 
 const lrcIdx = ref(0)
-const lrcRes = ref([] as LyricLine[])
 
 const playingStore = usePlayingStore()
 
+const lrcCache = new MaximumMap<string, LyricLine[]>(100)
+
 const lrcUrl = computed(() => playingStore.currentSong?.lrc ?? '')
 
-const lrcCache = new WeakMap<Song, Lyric>()
+const { data } = useFetch(lrcUrl, { refetch: true, async beforeFetch({ url, cancel }) {
+  if (lrcCache.has(url)) {
+    cancel()
+  }
+} }).get().text()
 
-watchEffect(async () => {
-  const url = lrcUrl.value
-  if (url && playingStore.currentSong) {
-    if (lrcCache.has(playingStore.currentSong)) {
-      lrcIdx.value = 0
-      lrcRes.value = lrcCache.get(playingStore.currentSong)?.lyrics ?? []
-      return
-    }
-    const lrc = new Lyric(url)
-    await lrc.fetchLyric()
-    lrc.parseLyric()
-    lrcRes.value = lrc.lyrics
-    lrcCache.set(playingStore.currentSong, lrc)
+const lrcRes = ref<LyricLine[]>([])
+
+watch(data, () => {
+  if (lrcCache.has(playingStore.currentSong?.lrc ?? '')) {
+    lrcRes.value = lrcCache.get(playingStore.currentSong?.lrc ?? '') ?? []
+  }
+  else {
+    const res = parseLyric(data.value ?? '')
+    lrcCache.set(playingStore.currentSong?.lrc ?? '', res)
+    lrcRes.value = res
   }
 })
 

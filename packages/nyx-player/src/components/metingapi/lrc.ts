@@ -19,34 +19,40 @@ export function parseLyricLine(line: string) {
   return min2sec + sec2sec + msec2sec
 }
 
-export class Lyric {
-  url: string
-  rawContent: string
-  lyrics: LyricLine[]
+export function parseLyric(lyric: string) {
+  const lyrics = [] as LyricLine[]
+  const lines = lyric.split('\n').filter(Boolean)
 
-  constructor(url: string) {
-    this.url = url
-    this.rawContent = ''
-    this.lyrics = []
+  const parsedLines = lines.map((line) => {
+    const start = parseLyricLine(line)
+    const text = line.replace(/\[.*?\]/, '').trim()
+    return { start, text }
+  })
+
+  for (let i = 0; i < parsedLines.length; i++) {
+    const { start, text } = parsedLines[i]
+    const end = i === parsedLines.length - 1 ? Infinity : parsedLines[i + 1].start
+    lyrics.push({ text, start, end })
   }
 
-  async fetchLyric() {
-    this.rawContent = (await (await fetch(this.url)).text())
+  return lyrics
+}
+
+export class MaximumMap<K, V> extends Map<K, V> {
+  private maxSize: number
+
+  constructor(maxSize: number) {
+    super()
+    this.maxSize = maxSize
   }
 
-  parseLyric() {
-    const lines = this.rawContent.split('\n').filter(Boolean)
-
-    const parsedLines = lines.map((line) => {
-      const start = parseLyricLine(line)
-      const text = line.replace(/\[.*?\]/, '').trim()
-      return { start, text }
-    })
-
-    for (let i = 0; i < parsedLines.length; i++) {
-      const { start, text } = parsedLines[i]
-      const end = i === parsedLines.length - 1 ? Infinity : parsedLines[i + 1].start
-      this.lyrics.push({ text, start, end })
+  set(key: K, value: V): this {
+    if (this.size >= this.maxSize) {
+      const firstKey = this.keys().next().value
+      if (firstKey !== undefined) {
+        this.delete(firstKey)
+      }
     }
+    return super.set(key, value)
   }
 }

@@ -1,6 +1,5 @@
-import type { LyricLine } from './lrc'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { Lyric, parseLyricLine } from './lrc'
+import { describe, expect, it } from 'vitest'
+import { parseLyric, parseLyricLine } from './lrc'
 
 describe('parseLyricLine', () => {
   it('parses [01:23.45] correctly', () => {
@@ -19,52 +18,49 @@ describe('parseLyricLine', () => {
     expect(() => parseLyricLine('invalid line')).toThrow('Invalid lyric line format')
   })
 })
-
-describe('lyric class', () => {
-  let lyric: Lyric
-  const mockContent = `[00:01.00]First line\n[00:05.00]Second line\n`
-
-  beforeEach(() => {
-    lyric = new Lyric('https://example.com/lyric.lrc')
+describe('parseLyric', () => {
+  it('parses a single lyric line correctly', () => {
+    const input = '[00:10.00]Hello world'
+    const result = parseLyric(input)
+    expect(result).toEqual([
+      { text: 'Hello world', start: 10, end: Infinity },
+    ])
   })
 
-  it('fetchLyric stores fetched content', async () => {
-    globalThis.fetch = vi.fn(() =>
-      Promise.resolve({
-        text: () => Promise.resolve(mockContent),
-      }),
-    ) as any
-
-    await lyric.fetchLyric()
-    expect(lyric.rawContent).toBe(mockContent)
+  it('parses multiple lyric lines correctly', () => {
+    const input = `[00:10.00]Hello world
+[00:20.00]How are you`
+    const result = parseLyric(input)
+    expect(result).toEqual([
+      { text: 'Hello world', start: 10, end: 20 },
+      { text: 'How are you', start: 20, end: Infinity },
+    ])
   })
 
-  it('parseLyric correctly parses lyric lines', () => {
-    lyric.rawContent = mockContent
-    lyric.parseLyric()
-    const expected: LyricLine[] = [
-      { text: 'First line', start: 1.0, end: 5.0 },
-      { text: 'Second line', start: 5.0, end: Infinity },
-    ]
-    expect(lyric.lyrics).toEqual(expected)
-  })
-})
+  it('handles empty lines gracefully', () => {
+    const input = `[00:10.00]Hello world
 
-describe('lyric.parseLyric edge cases', () => {
-  it('handles empty lines', () => {
-    const lyric = new Lyric('https://example.com/lyric.lrc')
-    lyric.rawContent = `[00:01.00]Line one\n\n[00:05.00]Line two\n`
-    expect(() => lyric.parseLyric()).toBeTruthy()
+[00:20.00]How are you`
+    const result = parseLyric(input)
+    expect(result).toEqual([
+      { text: 'Hello world', start: 10, end: 20 },
+      { text: 'How are you', start: 20, end: Infinity },
+    ])
   })
 
-  it('handles duplicate timestamps', () => {
-    const lyric = new Lyric('https://example.com/lyric.lrc')
-    lyric.rawContent = `[00:01.00]First time\n[00:01.00]Duplicate time\n[00:03.00]Next line\n`
-    lyric.parseLyric()
-    expect(lyric.lyrics).toEqual([
-      { text: 'First time', start: 1.0, end: 1.0 },
-      { text: 'Duplicate time', start: 1.0, end: 3.0 },
-      { text: 'Next line', start: 3.0, end: Infinity },
+  it('throws an error for invalid lyric line format', () => {
+    const input = `[00:10.00]Hello world
+invalid line`
+    expect(() => parseLyric(input)).toThrow('Invalid lyric line format')
+  })
+
+  it('parses lyrics with no milliseconds correctly', () => {
+    const input = `[00:10]Hello world
+[00:20]How are you`
+    const result = parseLyric(input)
+    expect(result).toEqual([
+      { text: 'Hello world', start: 10, end: 20 },
+      { text: 'How are you', start: 20, end: Infinity },
     ])
   })
 })
