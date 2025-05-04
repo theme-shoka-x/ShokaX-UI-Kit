@@ -152,9 +152,11 @@ useCssVars(() => {
 </script>
 
 <template>
-  <Suspense>
-    <AudioPlayer id="MusicPlayerRoot" :playlist-u-r-ls="urls" :show-player="playingStore.showPlayer" />
-  </Suspense>
+  <Teleport to="body">
+    <Suspense>
+      <AudioPlayer id="MusicPlayerRoot" :playlist-u-r-ls="urls" :show-player="playingStore.showPlayer" />
+    </Suspense>
+  </Teleport>
 </template>
 
 <style>

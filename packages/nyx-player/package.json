@@ -1,7 +1,7 @@
 {
   "name": "nyx-player",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "zkz098",
   "license": "AGPL-3.0-or-later",
   "sideEffects": true,
