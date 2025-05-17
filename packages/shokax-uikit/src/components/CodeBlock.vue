@@ -1,10 +1,44 @@
 <script setup lang="ts">
+import { ref, useTemplateRef } from 'vue'
 
+const codeblock = useTemplateRef('codeblock')
+const copied = ref(false)
+
+async function copyCode() {
+  if (!codeblock.value)
+    return
+
+  const code = codeblock.value.textContent ?? ''
+
+  try {
+    await navigator.clipboard.writeText(code)
+    copied.value = true
+    setTimeout(() => {
+      copied.value = false
+    }, 3000)
+  }
+  catch (err) {
+    copied.value = false
+    throw new Error(`Failed to copy code: ${err}`)
+  }
+}
 </script>
 
 <template>
-  <div class="box-shadow rounded-lg text-4">
-    <slot />
+  <div class="codeblock ml-2% max-w-96% text-4">
+    <div class="header min-h-6 pb-2">
+      <div class="float-left flex flex-row gap-2.5">
+        <div class="ml-3.25 mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(252,_98,_93)]" />
+        <div class="mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(253,_188,_64)]" />
+        <div class="mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(53,_205,_75)]" />
+      </div>
+      <div class="float-right flex flex-row pr-6 pt-2">
+        <button class="cursor-pointer" :class="{ 'i-ri-file-copy-fill': !copied, 'i-ri-check-fill': copied }" @click="copyCode" />
+      </div>
+    </div>
+    <div ref="codeblock">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -19,20 +53,41 @@
     url('../assets/fonts/JetBrainsMono-Regular.ttf') format('truetype');
 }
 
-.box-shadow {
+.header {
+  background-color: var(--grey-2);
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+}
+
+.codeblock {
   box-shadow: 0.5rem 0.5rem 1rem var(--grey-3);
-  background-color: var(--grey-5);
 }
 
 :deep(*) {
   font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
   font-size: 1rem;
   line-height: 1.5rem;
+  line-break: anywhere;
+  white-space: break-spaces;
+}
+
+:deep(pre) {
+  margin: 0;
+  padding: 0.75rem;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+:deep(.line) {
+  text-indent: -2.5rem;
+  padding-left: 2.5rem;
 }
 
 :deep(code) {
   counter-reset: step;
   counter-increment: step 0;
+  display: flex;
+  flex-direction: column;
 }
 
 :deep(code .line::before) {
