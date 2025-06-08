@@ -14,7 +14,7 @@ const linkHref = props.href || '#'
 <template>
   <NavItem>
     <LinkElement :href="linkHref">
-      <div v-if="icon" :class="icon" class="inline-block vertical-text-bottom text-xl" />
+      <div v-if="icon" :class="icon" class="icon-nav inline-block vertical-text-bottom text-xl" />
       {{ text }}
     </LinkElement>
   </NavItem>

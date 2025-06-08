@@ -48,9 +48,7 @@ async function copyCode() {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src:
-    url('../assets/fonts/JetBrainsMono-Regular.woff2') format('woff2'),
-    url('../assets/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
 }
 
 .header {
@@ -123,5 +121,21 @@ async function copyCode() {
 
 :deep(.diff .highlighted) {
   background-color: var(--grey-4);
+}
+</style>
+
+<style lang="css">
+html[data-theme='dark'] .shiki,
+html[data-theme='dark'] .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  /* 可选，用于定义字体样式 */
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+html[data-theme='dark'] .codeblock {
+  box-shadow: none;
 }
 </style>

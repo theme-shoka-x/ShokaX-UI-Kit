@@ -1,0 +1,9 @@
+.github
+node_modules
+.vscode
+.turbo
+coverage
+*.test.ts
+tests
+playwright-report
+!dist

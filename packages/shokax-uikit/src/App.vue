@@ -47,12 +47,18 @@ provide('linkElName', 'a')
 </script>
 
 <template>
-  <Brand :is-home="true" art-board-content="111" headline-content="222" />
+  <!-- <Brand :is-home="true" art-board-content="111" headline-content="222" /> -->
   <NavBar :nav-links="navlinks" name="website" :click-toggle-callback="() => void 0" />
   <ToolBar :show-contents-click-callback="() => void 0" />
   <Waves />
 
   <DividerLine content="111" />
+  <CodeBlock>
+    <pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-shell">
+  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt</span><span style="color:#B56959;--shiki-dark:#C98A7D"> install</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-essential</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ca-certificates</span><span style="color:#B56959;--shiki-dark:#C98A7D"> zlib1g-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> tar</span><span style="color:#B56959;--shiki-dark:#C98A7D"> unzip</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libssl-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> wget</span><span style="color:#B56959;--shiki-dark:#C98A7D"> curl</span><span style="color:#B56959;--shiki-dark:#C98A7D"> git</span><span style="color:#B56959;--shiki-dark:#C98A7D"> cmake</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ninja-build</span><span style="color:#B56959;--shiki-dark:#C98A7D"> golang</span></span>
+  <span class="line"><span style="color:#A0ADA0;--shiki-dark:#758575DD"># 需要启用源代码软件源(deb-src)</span></span>
+  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt-get</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-dep</span><span style="color:#B56959;--shiki-dark:#C98A7D"> nginx</span></span></code></pre>
+  </CodeBlock>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis libero non justo auctor, quis convallis ipsum varius. Curabitur porttitor tempor risus sed maximus. Ut sit amet pharetra eros, vel euismod quam. Integer luctus, justo eget luctus facilisis, purus nisl scelerisque odio, sit amet accumsan felis dui in neque. Etiam at neque nunc. Phasellus elementum nulla eget mauris sodales laoreet. Nullam ligula leo, elementum id pulvinar id, posuere ac libero. Sed posuere ligula sed laoreet ultrices. Praesent dictum dapibus eros, sed pretium lectus tincidunt nec. Vivamus molestie quis massa non aliquam. Phasellus auctor auctor enim, non ullamcorper ipsum. In lacinia nibh ut lectus efficitur, non egestas felis vestibulum.
 
@@ -64,12 +70,6 @@ provide('linkElName', 'a')
 
     Aliquam erat volutpat. Aliquam erat volutpat. Praesent sed velit eu ipsum tempor vestibulum dignissim vitae eros. Proin interdum urna orci, et feugiat quam pharetra a. Morbi quis faucibus neque. Nam pharetra luctus lectus non feugiat. Vivamus tellus orci, dignissim vitae consectetur eu, interdum sed sapien. Integer malesuada purus vel pretium fermentum. Nulla facilisi. Morbi fermentum arcu erat. Aliquam egestas consequat elementum. In vel leo ullamcorper, semper felis in, commodo massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi ut convallis ligula, et malesuada nibh. Aenean commodo neque sit amet posuere vestibulum. Suspendisse tincidunt libero ac tortor molestie, volutpat cursus arcu elementum.
   </p>
-  <CodeBlock>
-    <pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-shell">
-  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt</span><span style="color:#B56959;--shiki-dark:#C98A7D"> install</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-essential</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ca-certificates</span><span style="color:#B56959;--shiki-dark:#C98A7D"> zlib1g-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> tar</span><span style="color:#B56959;--shiki-dark:#C98A7D"> unzip</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libssl-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> wget</span><span style="color:#B56959;--shiki-dark:#C98A7D"> curl</span><span style="color:#B56959;--shiki-dark:#C98A7D"> git</span><span style="color:#B56959;--shiki-dark:#C98A7D"> cmake</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ninja-build</span><span style="color:#B56959;--shiki-dark:#C98A7D"> golang</span></span>
-  <span class="line"><span style="color:#A0ADA0;--shiki-dark:#758575DD"># 需要启用源代码软件源(deb-src)</span></span>
-  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt-get</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-dep</span><span style="color:#B56959;--shiki-dark:#C98A7D"> nginx</span></span></code></pre>
-  </CodeBlock>
   <div id="comment">
     111
   </div>

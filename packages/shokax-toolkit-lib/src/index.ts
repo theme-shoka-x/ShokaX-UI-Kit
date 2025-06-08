@@ -11,5 +11,5 @@ export default {
   structurePostsByDate,
   generateTagCloud,
   generateRandomBrightColor,
-  fmtNum
+  fmtNum,
 }
