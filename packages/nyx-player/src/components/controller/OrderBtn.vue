@@ -4,7 +4,15 @@ import { usePlayingStore } from '../playingStore'
 const playingStore = usePlayingStore()
 
 function changeMode() {
-  playingStore.mode = playingStore.mode === 'order' ? 'random' : playingStore.mode === 'random' ? 'loop' : 'order'
+  if (playingStore.mode === 'order') {
+    playingStore.mode = 'random'
+  }
+  else if (playingStore.mode === 'random') {
+    playingStore.mode = 'loop'
+  }
+  else {
+    playingStore.mode = 'order'
+  }
 }
 </script>
 

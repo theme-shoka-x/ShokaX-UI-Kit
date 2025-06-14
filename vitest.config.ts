@@ -12,5 +12,10 @@ export default defineConfig({
       },
     },
     exclude: ['packages/*/tests/e2e/**'],
+    projects: [
+      './packages/nyx-player',
+      './packages/shokax-uikit',
+      './packages/shokax-toolkit-lib',
+    ],
   },
 })

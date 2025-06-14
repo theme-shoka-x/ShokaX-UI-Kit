@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue'
+import { defineProps, ref } from 'vue'
 
-const codeblock = useTemplateRef('codeblock')
+defineProps<{
+  content: string
+}>()
+const codeblock = ref<HTMLElement | null>(null)
 const copied = ref(false)
 
 async function copyCode() {
@@ -33,12 +36,15 @@ async function copyCode() {
         <div class="mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(53,_205,_75)]" />
       </div>
       <div class="float-right flex flex-row pr-6 pt-2">
-        <button class="cursor-pointer" :class="{ 'i-ri-file-copy-fill': !copied, 'i-ri-check-fill': copied }" @click="copyCode" />
+        <button
+          class="cursor-pointer"
+          :class="{ 'i-ri-file-copy-fill': !copied, 'i-ri-check-fill': copied }"
+          @click="copyCode"
+        />
       </div>
     </div>
-    <div ref="codeblock">
-      <slot />
-    </div>
+
+    <div ref="codeblock" v-html="content" />
   </div>
 </template>
 

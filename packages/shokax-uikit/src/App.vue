@@ -3,7 +3,6 @@ import type { NavItemType } from './components/navbar/NavTypes'
 import { provide } from 'vue'
 import CodeBlock from './components/CodeBlock.vue'
 import DividerLine from './components/DividerLine.vue'
-import Brand from './components/header/Brand.vue'
 import NavBar from './components/navbar/NavBar.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
 import Waves from './components/waves/Waves.vue'
@@ -44,6 +43,11 @@ const navlinks: NavItemType[] = [
 ]
 
 provide('linkElName', 'a')
+
+const codes = `<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-shell">
+  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt</span><span style="color:#B56959;--shiki-dark:#C98A7D"> install</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-essential</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ca-certificates</span><span style="color:#B56959;--shiki-dark:#C98A7D"> zlib1g-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> tar</span><span style="color:#B56959;--shiki-dark:#C98A7D"> unzip</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libssl-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> wget</span><span style="color:#B56959;--shiki-dark:#C98A7D"> curl</span><span style="color:#B56959;--shiki-dark:#C98A7D"> git</span><span style="color:#B56959;--shiki-dark:#C98A7D"> cmake</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ninja-build</span><span style="color:#B56959;--shiki-dark:#C98A7D"> golang</span></span>
+  <span class="line"><span style="color:#A0ADA0;--shiki-dark:#758575DD"># 需要启用源代码软件源(deb-src)</span></span>
+  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt-get</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-dep</span><span style="color:#B56959;--shiki-dark:#C98A7D"> nginx</span></span></code></pre>`
 </script>
 
 <template>
@@ -53,12 +57,7 @@ provide('linkElName', 'a')
   <Waves />
 
   <DividerLine content="111" />
-  <CodeBlock>
-    <pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-shell">
-  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt</span><span style="color:#B56959;--shiki-dark:#C98A7D"> install</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-essential</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ca-certificates</span><span style="color:#B56959;--shiki-dark:#C98A7D"> zlib1g-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> tar</span><span style="color:#B56959;--shiki-dark:#C98A7D"> unzip</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libssl-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> wget</span><span style="color:#B56959;--shiki-dark:#C98A7D"> curl</span><span style="color:#B56959;--shiki-dark:#C98A7D"> git</span><span style="color:#B56959;--shiki-dark:#C98A7D"> cmake</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ninja-build</span><span style="color:#B56959;--shiki-dark:#C98A7D"> golang</span></span>
-  <span class="line"><span style="color:#A0ADA0;--shiki-dark:#758575DD"># 需要启用源代码软件源(deb-src)</span></span>
-  <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt-get</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-dep</span><span style="color:#B56959;--shiki-dark:#C98A7D"> nginx</span></span></code></pre>
-  </CodeBlock>
+  <CodeBlock :content="codes" />
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis libero non justo auctor, quis convallis ipsum varius. Curabitur porttitor tempor risus sed maximus. Ut sit amet pharetra eros, vel euismod quam. Integer luctus, justo eget luctus facilisis, purus nisl scelerisque odio, sit amet accumsan felis dui in neque. Etiam at neque nunc. Phasellus elementum nulla eget mauris sodales laoreet. Nullam ligula leo, elementum id pulvinar id, posuere ac libero. Sed posuere ligula sed laoreet ultrices. Praesent dictum dapibus eros, sed pretium lectus tincidunt nec. Vivamus molestie quis massa non aliquam. Phasellus auctor auctor enim, non ullamcorper ipsum. In lacinia nibh ut lectus efficitur, non egestas felis vestibulum.
 

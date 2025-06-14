@@ -17,7 +17,7 @@ export interface Preset {
   }
 }
 
-type RequiredColorsConfig = {
+export type RequiredColorsConfig = {
   [K in keyof colorsConfig]-?: string
 }
 

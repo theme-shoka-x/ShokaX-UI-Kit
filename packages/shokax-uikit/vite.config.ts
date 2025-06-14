@@ -12,5 +12,14 @@ export default defineConfig(({ mode }) => {
       'process.env.NODE_ENV': JSON.stringify(mode),
       '__VUE_PROD_DEVTOOLS__': false,
     },
+    build: {
+      lib: {
+        entry: [
+          'src/entries/codeblock.ts',
+        ],
+        name: 'ShokaxUIKit',
+        fileName: format => `shokax-uikit.${format}.js`,
+      },
+    },
   }
 })

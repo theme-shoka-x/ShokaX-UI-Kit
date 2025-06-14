@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import type { Preset } from './presets'
+import type { Preset, RequiredColorsConfig } from './presets'
 import { onMounted, provide, ref, useCssVars, watch } from 'vue'
 import AudioPlayer from './components/AudioPlayer.vue'
 import { usePlayingStore } from './components/playingStore'
@@ -47,7 +47,7 @@ function setupPlayBtn(el: HTMLElement) {
 }
 
 onMounted(() => {
-  // showBtn setup
+  // 初始化showBtn
   if (typeof props.showBtn === 'string') {
     const el = document.querySelector(props.showBtn) as HTMLElement
     if (el) {
@@ -76,7 +76,11 @@ onMounted(() => {
       }
     }, { once: true })
   }
+},
+)
 
+onMounted(() => {
+  // 初始化playBtn
   if (typeof props.playBtn === 'string') {
     const el = document.querySelector(props.playBtn) as HTMLElement
     if (el) {
@@ -105,8 +109,7 @@ onMounted(() => {
       }
     }, { once: true })
   }
-},
-)
+})
 
 const stylesPresent = props.styles || presets.nyx
 
@@ -134,19 +137,22 @@ else {
 }
 
 useCssVars(() => {
-  const theme = stylesPresent.styles[currentMode.value]
+  const theme = stylesPresent.styles[currentMode.value] as RequiredColorsConfig
   const defaultTheme = nyxPreset.styles[currentMode.value]
+
+  Object.assign(theme, defaultTheme)
+
   return {
-    'player-border': theme.playerBorder || defaultTheme.playerBorder,
-    'close-btn': theme.closeBtn || defaultTheme.closeBtn,
-    'secondary-text': theme.secondaryText || defaultTheme.secondaryText,
-    'primary-text': theme.primaryText || defaultTheme.primaryText,
-    'player-background': theme.playerBackground || defaultTheme.playerBackground,
-    'playlist-line': theme.playListLine || defaultTheme.playListLine,
-    'hover-btn': theme.hoverBtn || defaultTheme.hoverBtn,
-    'box-bg-shadow': theme.boxBackgroundShadow || defaultTheme.boxBackgroundShadow,
-    'primary-color': `rgb(${theme.primaryColor})` || `rgb(${defaultTheme.primaryColor})`,
-    'primary-color-a': `rgba(${theme.primaryColor}, 0.3)` || `rgba(${defaultTheme.primaryColor}, 0.3)`,
+    'player-border': theme.playerBorder,
+    'close-btn': theme.closeBtn,
+    'secondary-text': theme.secondaryText,
+    'primary-text': theme.primaryText,
+    'player-background': theme.playerBackground,
+    'playlist-line': theme.playListLine,
+    'hover-btn': theme.hoverBtn,
+    'box-bg-shadow': theme.boxBackgroundShadow,
+    'primary-color': `rgb(${theme.primaryColor})`,
+    'primary-color-a': `rgba(${theme.primaryColor}, 0.3)`,
   }
 })
 </script>
@@ -158,6 +164,3 @@ useCssVars(() => {
     </Suspense>
   </Teleport>
 </template>
-
-<style>
-</style>

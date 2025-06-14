@@ -126,7 +126,6 @@ onClickOutside(target, () => playingStore.showPlayer = false, { ignore: [showBtn
   backdrop-filter: blur(0.625rem);
   width: 50vw;
   max-width: 25rem;
-  bottom: 0;
   right: 3.5rem;
   padding-bottom: 1rem;
   bottom: 1rem;

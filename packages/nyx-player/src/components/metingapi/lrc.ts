@@ -14,7 +14,22 @@ export function parseLyricLine(line: string) {
 
   const min2sec = Number.parseInt(match[1]) * 60
   const sec2sec = Number.parseInt(match[2])
-  const msec2sec = match[3] ? Number.parseInt(match[3]) / (match[3].length === 2 ? 100 : 1000) : 0
+
+  function convertMillisecondsToSeconds(msecString?: string): number {
+    if (!msecString) {
+      return 0
+    }
+
+    const msec = Number.parseInt(msecString)
+    if (msecString.length === 2) {
+      return msec / 100
+    }
+    else {
+      return msec / 1000
+    }
+  }
+
+  const msec2sec = convertMillisecondsToSeconds(match[3])
 
   return min2sec + sec2sec + msec2sec
 }
@@ -39,7 +54,7 @@ export function parseLyric(lyric: string) {
 }
 
 export class MaximumMap<K, V> extends Map<K, V> {
-  private maxSize: number
+  private readonly maxSize: number
 
   constructor(maxSize: number) {
     super()

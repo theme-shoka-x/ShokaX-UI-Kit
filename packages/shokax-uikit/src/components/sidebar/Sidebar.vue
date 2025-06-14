@@ -16,7 +16,6 @@ const isWaveVisible = useElementVisibility(inject(_PAGE_WAVES_ELEMENT))
         <!-- Sidebar Header -->
       </div>
       <!-- Sidebar Content -->
-       
     </div>
   </div>
 </template>
