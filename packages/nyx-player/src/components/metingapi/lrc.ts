@@ -40,7 +40,15 @@ export function parseLyric(lyric: string) {
 
   const parsedLines = lines.map((line) => {
     const start = parseLyricLine(line)
-    const text = line.replace(/\[.*?\]/, '').trim()
+    const bracketStart = line.indexOf('[')
+    const bracketEnd = line.indexOf(']')
+    let text: string
+    if (bracketStart !== -1 && bracketEnd !== -1) {
+      text = line.substring(bracketEnd + 1).trim()
+    }
+    else {
+      text = line.trim()
+    }
     return { start, text }
   })
 
