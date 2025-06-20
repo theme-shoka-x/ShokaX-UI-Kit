@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { usePlayingStore } from '../playingStore'
+import { usePlayingStore } from '@/stores/usePlayingStore'
 import MusicLRC from './info/MusicLRC.vue'
 
 const playingStore = usePlayingStore()

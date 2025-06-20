@@ -2,8 +2,8 @@
 import type { Ref } from 'vue'
 import type { Preset, RequiredColorsConfig } from './presets'
 import { onMounted, provide, ref, useCssVars, watch } from 'vue'
+import { usePlayingStore } from '@/stores/usePlayingStore'
 import AudioPlayer from './components/AudioPlayer.vue'
-import { usePlayingStore } from './components/playingStore'
 import { nyxPreset, presets } from './presets'
 
 const props = defineProps<{

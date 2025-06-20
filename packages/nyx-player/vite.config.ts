@@ -28,5 +28,10 @@ export default defineConfig(({ mode }) => {
       'process.env.NODE_ENV': JSON.stringify(mode),
       '__VUE_PROD_DEVTOOLS__': false,
     },
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
   }
 })

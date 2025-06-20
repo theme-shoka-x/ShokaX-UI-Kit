@@ -1,8 +1,8 @@
-import type { Song } from './audioType'
+import type { Song } from '../utils/audioType'
 import { destr } from 'destr'
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import { PlayList } from './metingapi/playlist'
+import { PlayList } from '../utils/metingapi/playlist'
 
 export function parse(text: string) {
   const res = destr(text) as PlayingStore

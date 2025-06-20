@@ -1,7 +1,7 @@
 import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { PlayList } from './metingapi/playlist'
-import { parse, usePlayingStore } from './playingStore'
+import { PlayList } from '../utils/metingapi/playlist'
+import { parse, usePlayingStore } from './usePlayingStore'
 
 const sessionStorageMock = (() => {
   let store: Record<string, string> = {}

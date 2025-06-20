@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { PlayList } from '../metingapi/playlist'
-import { usePlayingStore } from '../playingStore'
+import type { PlayList } from '@/utils/metingapi/playlist'
+import { usePlayingStore } from '@/stores/usePlayingStore'
 
 const playingStore = usePlayingStore()
 

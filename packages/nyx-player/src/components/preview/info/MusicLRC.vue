@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { LyricLine } from '../../metingapi/lrc'
+import type { LyricLine } from '@/utils/metingapi/lrc'
 import { useFetch } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
-import { MaximumMap, parseLyric } from '../../metingapi/lrc'
-import { usePlayingStore } from '../../playingStore'
+import { usePlayingStore } from '@/stores/usePlayingStore'
+import { MaximumMap, parseLyric } from '@/utils/metingapi/lrc'
 
 const lrcIdx = ref(0)
 

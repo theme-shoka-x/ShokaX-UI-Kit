@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
-import { usePlayingStore } from './components/playingStore'
+import { usePlayingStore } from '@/stores/usePlayingStore'
 import App from './NyxPlayer.vue'
 
 const playingStore = usePlayingStore()

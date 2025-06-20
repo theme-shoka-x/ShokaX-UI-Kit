@@ -8,7 +8,10 @@
       "import": "./dist/codeblock.es.js",
       "default": "./dist/codeblock.es.js"
     },
-    "./components/codeblock/style": "./dist/shokax-components-lib.css"
+    "./components/codeblock/style": "./dist/shokax-components-lib.css",
+    ".": {
+      "default": "./"
+    }
   },
   "scripts": {
     "dev": "vite",

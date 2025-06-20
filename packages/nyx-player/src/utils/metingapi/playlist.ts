@@ -1,5 +1,5 @@
 import type { Song } from '../audioType'
-import { METING_API } from './constants'
+import { METING_API } from '../constants'
 
 export type APIResponse = Song
 

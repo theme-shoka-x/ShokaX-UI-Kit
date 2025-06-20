@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { usePlayingStore } from '../playingStore'
+import { usePlayingStore } from '@/stores/usePlayingStore'
 
 const playingStore = usePlayingStore()
 const playingNow = ref(playingStore.playing)
