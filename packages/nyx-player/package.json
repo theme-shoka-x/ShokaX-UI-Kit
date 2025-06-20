@@ -33,6 +33,7 @@
     "@vueuse/core": "^13.3.0",
     "destr": "^2.0.5",
     "es-toolkit": "^1.39.3",
+    "mitt": "^3.0.1",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.3.0",
     "rollup-plugin-visualizer": "^6.0.3",

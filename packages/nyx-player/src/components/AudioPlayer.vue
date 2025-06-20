@@ -2,7 +2,8 @@
 import type { Ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { throttle } from 'es-toolkit'
-import { computed, inject, onMounted, useTemplateRef, watch } from 'vue'
+import { computed, inject, onMounted, useTemplateRef } from 'vue'
+import { useRefreshPlayStateTrigger } from '@/composables/useRefreshPlayStateTrigger'
 import { usePlayingStore } from '@/stores/usePlayingStore'
 import { PlayList } from '@/utils/metingapi/playlist'
 import AudioController from './controller/AudioController.vue'
@@ -16,9 +17,10 @@ const props = defineProps<{
 
 const playingStore = usePlayingStore()
 const audioPlayer = useTemplateRef<HTMLAudioElement>('audio')
+const { trigger, onTrigger } = useRefreshPlayStateTrigger()
 
 onMounted(() => {
-  watch(() => playingStore.currentId, async () => {
+  onTrigger(async () => {
     if (audioPlayer.value !== null) {
       if (playingStore.playing) {
         if (playingStore.mode === 'loop') {
@@ -73,7 +75,7 @@ onClickOutside(target, () => playingStore.showPlayer = false, { ignore: [showBtn
     <div v-show="playingStore.showPlayer" ref="target" class="player-info border-radius-0.8rem fixed z-9 overflow-hidden rounded-xl">
       <AudioPreview />
       <AudioController />
-      <audio ref="audio" :src="src" :muted="!playingStore.enableVolume" @timeupdate="updateCurrentTime" @canplay="playingStore.currentId++" />
+      <audio ref="audio" :src="src" :muted="!playingStore.enableVolume" @timeupdate="updateCurrentTime" @canplay="trigger()" />
       <PlayListTabs />
       <div class="absolute right-4 top-3 cursor-pointer text-3.25 hover:color-[var(--hover-btn)]" @click="playingStore.showPlayer = false">
         <div class="i-ri-close-line text-5" />

@@ -33,7 +33,6 @@ describe('usePlayingStore', () => {
     const store = usePlayingStore()
     expect(store.playing).toBe(false)
     expect(store.showPlayer).toBe(false)
-    expect(store.currentId).toBe(0)
     expect(store.playlists).toEqual([])
   })
 
@@ -53,13 +52,10 @@ describe('usePlayingStore', () => {
     expect(store.playing).toBe(false)
   })
 
-  it('can set currentTime, currentId, and currentPlaylist', () => {
+  it('can set currentTime, and currentPlaylist', () => {
     const store = usePlayingStore()
     store.setCurrentTime(100)
     expect(store.currentTime).toBe(100)
-
-    store.setCurrentId(42)
-    expect(store.currentId).toBe(42)
 
     store.setCurrentPlaylist(1)
     expect(store.currentPlaylistIndex).toBe(1)

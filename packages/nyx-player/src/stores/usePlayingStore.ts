@@ -21,7 +21,6 @@ export const usePlayingStore = defineStore('playing', {
       playing: false,
       currentTime: 0,
       songDuration: 0,
-      currentId: 0,
       currentPlaylistIndex: 0,
       playlists: [] as PlayList[],
       mode: 'order',
@@ -48,9 +47,6 @@ export const usePlayingStore = defineStore('playing', {
     },
     setCurrentTime(time: number) {
       this.currentTime = time
-    },
-    setCurrentId(id: number) {
-      this.currentId = id
     },
     setCurrentPlaylist(playlistIdx: number) {
       this.currentPlaylistIndex = playlistIdx

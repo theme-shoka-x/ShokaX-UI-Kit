@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { useRefreshPlayStateTrigger } from '@/composables/useRefreshPlayStateTrigger'
 import { usePlayingStore } from '@/stores/usePlayingStore'
 
 const playingStore = usePlayingStore()
+const { trigger } = useRefreshPlayStateTrigger()
 
 function playPause() {
   playingStore.toggle()
-  playingStore.currentId++
+  trigger()
 }
 </script>
 

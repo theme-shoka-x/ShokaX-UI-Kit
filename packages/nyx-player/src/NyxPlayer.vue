@@ -4,6 +4,7 @@ import type { Preset, RequiredColorsConfig } from './presets'
 import { onMounted, provide, ref, useCssVars, watch } from 'vue'
 import { usePlayingStore } from '@/stores/usePlayingStore'
 import AudioPlayer from './components/AudioPlayer.vue'
+import { useRefreshPlayStateTrigger } from './composables/useRefreshPlayStateTrigger'
 import { nyxPreset, presets } from './presets'
 
 const props = defineProps<{
@@ -15,6 +16,7 @@ const props = defineProps<{
   styles?: Preset
 }>()
 const playingStore = usePlayingStore()
+const { trigger } = useRefreshPlayStateTrigger()
 
 // 创建 Ref 来存储元素
 const showBtnEl = ref<HTMLElement | null>(null)
@@ -38,7 +40,7 @@ function setupPlayBtn(el: HTMLElement) {
   playBtnEl.value = el // 更新 Ref
   el.addEventListener('click', () => {
     playingStore.playing = !playingStore.playing
-    playingStore.currentId++
+    trigger()
     el.dataset.play = playingStore.playing ? 'true' : 'false'
   })
   watch(() => playingStore.playing, () => {
