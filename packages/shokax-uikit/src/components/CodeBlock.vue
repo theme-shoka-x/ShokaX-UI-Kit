@@ -56,7 +56,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="shadowHost" class="codeblock ml-2% max-w-96% text-4">
+  <div ref="shadowHost" class="codeblock text-4">
     <div class="header min-h-6 pb-2">
       <div class="float-left flex flex-row gap-2.5">
         <div class="ml-3.25 mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(252,_98,_93)]" />
