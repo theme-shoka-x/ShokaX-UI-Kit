@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue'
 import { usePlayingStore } from '@/stores/usePlayingStore'
+
 const playingStore = usePlayingStore()
 
 async function forward() {

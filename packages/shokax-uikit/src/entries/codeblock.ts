@@ -1,5 +1,4 @@
-import { createApp } from 'vue'
-import CodeBlock from '../components/CodeBlock.vue'
+import { CodeBlockElement } from './CodeBlock.ce'
 
 import 'virtual:uno.css'
 
@@ -7,20 +6,20 @@ function replaceTargetsWithCodeBlockComponent(selector: string) {
   const targets = document.querySelectorAll(selector)
 
   targets.forEach((target) => {
-    const html = target.innerHTML
-    const mountPoint = document.createElement('div')
+    const html = target.outerHTML
+    const component = document.createElement('code-block')
 
-    target.replaceWith(mountPoint)
+    // 设置属性传递给 Vue 组件
+    component.setAttribute('content', html)
 
-    const app = createApp(CodeBlock, {
-      content: html,
-    })
-
-    app.mount(mountPoint)
+    target.replaceWith(component)
   })
 }
 
 export function initializeCodeBlock(selector: string) {
+  if (!customElements.get('code-block')) {
+    customElements.define('code-block', CodeBlockElement)
+  }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       replaceTargetsWithCodeBlockComponent(selector)

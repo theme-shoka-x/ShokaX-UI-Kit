@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 
 defineProps<{
   content: string
@@ -25,10 +25,38 @@ async function copyCode() {
     throw new Error(`Failed to copy code: ${err}`)
   }
 }
+
+const shadowHost = useTemplateRef('shadowHost')
+
+// 提取出 @font-face 并插入 document.head
+function insertGlobalFontFace(cssCode: string) {
+  const fontFaceMatch = cssCode.match(/@font-face\s*\{[^}]+\}/g)
+  if (fontFaceMatch) {
+    const globalStyle = document.createElement('style')
+    globalStyle.textContent = fontFaceMatch.join('\n')
+    document.head.appendChild(globalStyle)
+  }
+
+  // 返回去掉 font-face 的局部样式
+  return cssCode.replace(/@font-face\s*\{[^}]+\}/g, '')
+}
+
+// 插入其余 CSS 到 ShadowRoot
+onMounted(() => {
+  const shadowRoot = shadowHost.value?.getRootNode?.()
+  // @ts-expect-error temp
+  if (window.__cssCode__ && shadowRoot) {
+    const style = document.createElement('style')
+    // @ts-expect-error temp
+    const localCss = insertGlobalFontFace(window.__cssCode__)
+    style.textContent = localCss
+    shadowRoot.appendChild(style)
+  }
+})
 </script>
 
 <template>
-  <div class="codeblock ml-2% max-w-96% text-4">
+  <div ref="shadowHost" class="codeblock ml-2% max-w-96% text-4">
     <div class="header min-h-6 pb-2">
       <div class="float-left flex flex-row gap-2.5">
         <div class="ml-3.25 mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(252,_98,_93)]" />
