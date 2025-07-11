@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
           'src/entries/codeblock.ts',
         ],
         name: 'ShokaxUIKit',
-      }
+      },
     },
   }
 })

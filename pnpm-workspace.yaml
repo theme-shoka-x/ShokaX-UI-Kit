@@ -1,6 +1,7 @@
 packages:
   - packages/*
-  - apps/*
+  - apps/**
+
 onlyBuiltDependencies:
   - esbuild
   - vue-demi

@@ -5,11 +5,11 @@ import { onMounted, ref } from 'vue'
 const commentOffset = ref(0)
 
 onMounted(() => {
-  commentOffset.value = document.getElementById('comment')!.offsetTop
+  commentOffset.value = document.getElementById('comment')?.offsetTop ?? 0
 })
 
 window.addEventListener('resize', () => {
-  commentOffset.value = document.getElementById('comment')!.offsetTop
+  commentOffset.value = document.getElementById('comment')?.offsetTop ?? 0
 })
 
 const { y } = useWindowScroll({ behavior: 'smooth' })

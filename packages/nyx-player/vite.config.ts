@@ -14,7 +14,6 @@ export default defineConfig(({ mode }) => {
         UnoCSS(),
         dts({ tsconfigPath: './tsconfig.app.json' }) as PluginOption,
         visualizer({
-          open: true,
         }) as PluginOption,
       ],
     build: {

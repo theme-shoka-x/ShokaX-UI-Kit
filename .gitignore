@@ -29,6 +29,3 @@ coverage
 stats.html
 playwright-report
 test-results
-
-# temporary ignore unpublished packages
-apps/*
