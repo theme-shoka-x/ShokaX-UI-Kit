@@ -1,7 +1,7 @@
 {
   "name": "shokax-uikit",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "exports": {
     "./components/codeblock/init": {
       "types": "./dist/codeblock/entries/codeblock.d.ts",

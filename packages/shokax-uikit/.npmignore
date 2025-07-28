@@ -7,4 +7,6 @@ coverage
 tests
 playwright-report
 !dist
-*/**/pagefind
+dist/codeblock/pagefind
+dist/pagefind/pagefind
+public
