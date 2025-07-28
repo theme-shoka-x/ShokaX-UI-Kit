@@ -1,14 +1,47 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
 // @ts-expect-error no types for PagefindUI
 import { PagefindUI } from '@pagefind/default-ui'
-import { onMounted } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import { useDarkMode } from '@/composables/useDarkMode'
 import '@pagefind/default-ui/css/ui.css'
 
-defineProps<{
-  visible: boolean
+const props = defineProps<{
+  selector?: string | HTMLElement | Ref<HTMLElement | null>
+  showSearch?: boolean
 }>()
+
+const visible = ref(false)
+
+function toggleVisibility() {
+  visible.value = !visible.value
+}
+
+if (props.selector) {
+  onMounted(() => {
+    if (typeof props.selector === 'string') {
+      const element = document.querySelector(props.selector)
+      if (element) {
+        element.addEventListener('click', toggleVisibility)
+      }
+    }
+    else if (props.selector instanceof HTMLElement) {
+      props.selector.addEventListener('click', toggleVisibility)
+    }
+    else if (props.selector?.value instanceof HTMLElement) {
+      props.selector.value.addEventListener('click', toggleVisibility)
+    }
+    else {
+      console.warn('Invalid selector provided for PagefindSearch component.')
+    }
+  })
+}
+else {
+  watch(() => props.showSearch, (newValue) => {
+    visible.value = newValue
+  }, { immediate: true })
+}
 
 onMounted(() => {
   // eslint-disable-next-line no-new
@@ -23,10 +56,11 @@ const { isDark } = useDarkMode()
     <Transition name="slide-down">
       <div
         v-show="visible"
-        class="pagefind fixed top-12 m-12 max-h-80% max-w-100vw min-h-70% w-[calc(100vw_-_7rem)] overflow-x-hidden overflow-y-scroll rounded-lg bg-[var(--grey-1-a7)] p-2 opacity-90 backdrop-blur-xl"
+        class="pagefind fixed top-12 z-999 m-12 max-h-80% max-w-100vw min-h-70% w-[calc(100vw_-_7rem)] overflow-x-hidden overflow-y-scroll rounded-lg bg-[var(--grey-1-a7)] p-2 opacity-90 backdrop-blur-xl"
         :class="{ dark: isDark }"
       >
         <div id="pagefind" />
+        <div class="i-ri-close-line absolute bottom-4 right-4 cursor-pointer text-8" @click="visible = false" />
       </div>
     </Transition>
   </Teleport>

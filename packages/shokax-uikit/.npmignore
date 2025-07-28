@@ -7,3 +7,4 @@ coverage
 tests
 playwright-report
 !dist
+*/**/pagefind

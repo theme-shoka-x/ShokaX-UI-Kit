@@ -4,11 +4,15 @@
   "version": "0.0.3",
   "exports": {
     "./components/codeblock/init": {
-      "types": "./dist/entries/codeblock.d.ts",
-      "import": "./dist/codeblock.js",
-      "default": "./dist/codeblock.js"
+      "types": "./dist/codeblock/entries/codeblock.d.ts",
+      "import": "./dist/codeblock/codeblock.js",
+      "default": "./dist/codeblock/codeblock.js"
     },
-    "./components/codeblock/style": "./dist/shokax-components-lib.css",
+    "./components/pagefind/init": {
+      "types": "./dist/pagefind/entries/pagefind.d.ts",
+      "import": "./dist/pagefind/pagefind.js",
+      "default": "./dist/pagefind/pagefind.js"
+    },
     "./palette": "./src/styles/palette.css",
     "./style": "./src/styles/style.css",
     "./*": "./*"
@@ -16,7 +20,7 @@
   "scripts": {
     "dev": "vite",
     "check-types": "vue-tsc -b",
-    "build": "vite build",
+    "build": "vite build && vite build --config vite.codeblock.config.ts",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.vue . --fix",
     "test": "echo 'No test specified' && exit 0",

@@ -52,7 +52,7 @@ const isDark = useDark({
           <div class="cursor-pointer pb-2.5 pl-2 pr-2 pt-2.5 text-5" @click="isDark = !isDark">
             <div :class="{ 'i-ri-sun-line': !isDark, 'i-ri-moon-line': isDark }" />
           </div>
-          <div class="cursor-pointer pb-2.5 pl-2 pr-2 pt-2.5 text-5" @click="$emit('clickSearch')">
+          <div id="search" class="cursor-pointer pb-2.5 pl-2 pr-2 pt-2.5 text-5" @click="$emit('clickSearch')">
             <div class="i-ri-search-line" />
           </div>
         </RightNavBar>

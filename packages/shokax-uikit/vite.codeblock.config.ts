@@ -8,18 +8,23 @@ import dts from 'vite-plugin-dts'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   return {
-    plugins: [vue(), UnoCSS(), dts({ tsconfigPath: './tsconfig.app.json' }) as PluginOption, cssInjectedByJsPlugin() as PluginOption],
+    plugins: [vue(), UnoCSS(), dts({ tsconfigPath: './tsconfig.app.json' }) as PluginOption, cssInjectedByJsPlugin({
+      injectCodeFunction: (cssCode) => {
+        // @ts-expect-error dirty solution
+        globalThis.__cssCode__ = cssCode
+      },
+    }) as PluginOption],
     define: {
       'process.env.NODE_ENV': JSON.stringify(mode),
       '__VUE_PROD_DEVTOOLS__': false,
     },
     build: {
-      outDir: 'dist/pagefind',
+      outDir: 'dist/codeblock',
       lib: {
         entry: [
-          'src/entries/pagefind.ts',
+          'src/entries/codeblock.ts',
         ],
-        name: 'ShokaxUIKit-Pagefind',
+        name: 'ShokaxUIKit',
       },
     },
     resolve: {
