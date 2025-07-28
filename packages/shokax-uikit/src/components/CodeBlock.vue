@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, useTemplateRef } from 'vue'
+import { useDarkMode } from '../composables/useDarkMode'
 
 defineProps<{
   content: string
@@ -53,10 +54,12 @@ onMounted(() => {
     shadowRoot.appendChild(style)
   }
 })
+
+const { isDark } = useDarkMode()
 </script>
 
 <template>
-  <div ref="shadowHost" class="codeblock text-4">
+  <div ref="shadowHost" class="codeblock text-4" :class="{ dark: isDark }">
     <div class="header min-h-6 pb-2">
       <div class="float-left flex flex-row gap-2.5">
         <div class="ml-3.25 mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(252,_98,_93)]" />
@@ -156,6 +159,14 @@ onMounted(() => {
 :deep(.diff .highlighted) {
   background-color: var(--grey-4);
 }
+
+.dark {
+  box-shadow: none;
+}
+
+html[data-theme='dark'] .codeblock {
+  box-shadow: none;
+}
 </style>
 
 <style lang="css">
@@ -163,13 +174,17 @@ html[data-theme='dark'] .shiki,
 html[data-theme='dark'] .shiki span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
-  /* 可选，用于定义字体样式 */
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
-html[data-theme='dark'] .codeblock {
-  box-shadow: none;
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 </style>

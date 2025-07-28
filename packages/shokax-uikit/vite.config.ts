@@ -26,5 +26,10 @@ export default defineConfig(({ mode }) => {
         name: 'ShokaxUIKit',
       },
     },
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
   }
 })

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { NavItemType } from './components/navbar/NavTypes'
-import { provide } from 'vue'
+import { provide, ref } from 'vue'
 import CodeBlock from './components/CodeBlock.vue'
 import DividerLine from './components/DividerLine.vue'
 import NavBar from './components/navbar/NavBar.vue'
+import PagefindSearch from './components/search/PagefindSearch.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
 import Waves from './components/waves/Waves.vue'
 
@@ -48,11 +49,14 @@ const codes = `<pre class="shiki shiki-themes vitesse-light vitesse-dark" style=
   <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt</span><span style="color:#B56959;--shiki-dark:#C98A7D"> install</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-essential</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ca-certificates</span><span style="color:#B56959;--shiki-dark:#C98A7D"> zlib1g-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libpcre3-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> tar</span><span style="color:#B56959;--shiki-dark:#C98A7D"> unzip</span><span style="color:#B56959;--shiki-dark:#C98A7D"> libssl-dev</span><span style="color:#B56959;--shiki-dark:#C98A7D"> wget</span><span style="color:#B56959;--shiki-dark:#C98A7D"> curl</span><span style="color:#B56959;--shiki-dark:#C98A7D"> git</span><span style="color:#B56959;--shiki-dark:#C98A7D"> cmake</span><span style="color:#B56959;--shiki-dark:#C98A7D"> ninja-build</span><span style="color:#B56959;--shiki-dark:#C98A7D"> golang</span></span>
   <span class="line"><span style="color:#A0ADA0;--shiki-dark:#758575DD"># 需要启用源代码软件源(deb-src)</span></span>
   <span class="line"><span style="color:#59873A;--shiki-dark:#80A665">apt-get</span><span style="color:#B56959;--shiki-dark:#C98A7D"> build-dep</span><span style="color:#B56959;--shiki-dark:#C98A7D"> nginx</span></span></code></pre>`
+
+const visible = ref(false)
 </script>
 
 <template>
   <!-- <Brand :is-home="true" art-board-content="111" headline-content="222" /> -->
-  <NavBar :nav-links="navlinks" name="website" :click-toggle-callback="() => void 0" />
+  <NavBar :nav-links="navlinks" name="website" :click-toggle-callback="() => void 0" @click-search="visible = !visible" />
+  <PagefindSearch :show-search="visible" />
   <ToolBar :show-contents-click-callback="() => void 0" />
   <Waves />
 

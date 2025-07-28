@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { PageData, Post } from 'valaxy'
-import { useSiteConfig } from 'valaxy'
+import { useSiteConfig } from '../composables/config'
 
 defineProps<{
   frontmatter: Post
@@ -8,7 +8,7 @@ defineProps<{
 }>()
 const siteConfig = useSiteConfig()
 </script>
-
+   
 <template>
   <main>
     <div w="full" flex="~">
@@ -18,12 +18,12 @@ const siteConfig = useSiteConfig()
           <slot name="main-header-after" />
 
           <slot name="main-content">
-            <div class="markdown-body max-w-none pb-8 prose">
+            <div class="markdown-body prose max-w-none pb-8">
               <ValaxyMd :frontmatter="frontmatter">
                 <slot name="main-content-md" />
                 <slot />
               </ValaxyMd>
-            </div>
+            </div>  
             <slot name="main-content-after" />
           </slot>
         </div>
