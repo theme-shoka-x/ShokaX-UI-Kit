@@ -4,7 +4,7 @@ import { computed } from 'vue'
 
 import { useRoute } from 'vue-router'
 
-const frontmatter = useFrontmatter()
+const frontmatter = computed(()=>useFrontmatter().value)
 
 const route = useRoute()
 const posts = usePostList()

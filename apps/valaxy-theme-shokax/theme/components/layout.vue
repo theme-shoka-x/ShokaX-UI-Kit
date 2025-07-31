@@ -1,23 +1,24 @@
 <script lang="ts" setup>
-import NavBar from 'shokax-uikit/src/components/navbar/NavBar.vue';
-import Cover from 'shokax-uikit/src/components/header/Cover.vue';
-import Waves from 'shokax-uikit/src/components/waves/Waves.vue';
-import ToolBar from 'shokax-uikit/src/components/toolbar/ToolBar.vue';
-import { useThemeConfig,useSiteConfig } from '../composables/config';
-import { provide } from 'vue';
+import Cover from 'shokax-uikit/src/components/header/Cover.vue'
+import NavBar from 'shokax-uikit/src/components/navbar/NavBar.vue'
+import ToolBar from 'shokax-uikit/src/components/toolbar/ToolBar.vue'
+import Waves from 'shokax-uikit/src/components/waves/Waves.vue'
+import { useSiteConfig } from 'valaxy'
+import { provide } from 'vue'
+import { useThemeConfig } from '../composables/config'
 
 const themeConfig = useThemeConfig()
 const siteConfig = useSiteConfig()
 
-provide("linkElName", "AppLink")
+provide('linkElName', 'AppLink')
 </script>
 
 <template>
   <div class="antialiased">
-    <NavBar :nav-links="themeConfig.nav" :click-toggle-callback="()=>void 0" :name="siteConfig.title"></NavBar>
+    <NavBar :nav-links="themeConfig.nav" :click-toggle-callback="() => void 0" :name="siteConfig.title" />
 
-    <Cover :src="themeConfig.cover"></Cover>
-    <Waves></Waves>
+    <Cover :src="themeConfig.cover" />
+    <Waves />
 
     <main>
       <slot>
@@ -56,7 +57,7 @@ provide("linkElName", "AppLink")
       </slot>
     </main>
 
-    <ToolBar :show-contents-click-callback="()=>void 0"></ToolBar>
+    <ToolBar :show-contents-click-callback="() => void 0" />
 
     <StarterFooter>
       <slot name="footer" />

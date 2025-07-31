@@ -5,6 +5,7 @@ import CodeBlock from './components/CodeBlock.vue'
 import DividerLine from './components/DividerLine.vue'
 import NavBar from './components/navbar/NavBar.vue'
 import PagefindSearch from './components/search/SearchPage.vue'
+import SidebarToC from './components/sidebar/sidebarToC.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
 import Waves from './components/waves/Waves.vue'
 
@@ -27,6 +28,7 @@ const navlinks: NavItemType[] = [
   {
     dropbox: true,
     text: 'Account',
+    href: '/account',
     icon: 'i-ri-account-circle-line',
     dropboxItems: [
       {
@@ -58,7 +60,9 @@ const codes = `<pre class="shiki shiki-themes vitesse-light vitesse-dark" style=
   <ToolBar :show-contents-click-callback="() => void 0" />
   <Waves />
 
-  <DividerLine content="111" />
+  <SidebarToC :is-visible="true" />
+
+  <DividerLine content="1112" />
   <CodeBlock :content="codes" />
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis libero non justo auctor, quis convallis ipsum varius. Curabitur porttitor tempor risus sed maximus. Ut sit amet pharetra eros, vel euismod quam. Integer luctus, justo eget luctus facilisis, purus nisl scelerisque odio, sit amet accumsan felis dui in neque. Etiam at neque nunc. Phasellus elementum nulla eget mauris sodales laoreet. Nullam ligula leo, elementum id pulvinar id, posuere ac libero. Sed posuere ligula sed laoreet ultrices. Praesent dictum dapibus eros, sed pretium lectus tincidunt nec. Vivamus molestie quis massa non aliquam. Phasellus auctor auctor enim, non ullamcorper ipsum. In lacinia nibh ut lectus efficitur, non egestas felis vestibulum.
@@ -75,6 +79,17 @@ const codes = `<pre class="shiki shiki-themes vitesse-light vitesse-dark" style=
     111
   </div>
   <div id="toc" />
+
+  <h1>H1</h1>
+  <h2>H1.1</h2>
+  <h3>H1.1.1</h3>
+  <h3>H1.1.2</h3>
+  <h2>H1.2</h2>
+  <h3>H1.2.1</h3>
+  <h3>H1.2.2</h3>
+  <h1>H2</h1>
+  <h2>H2.1</h2>
+  <h3>H2.1.1</h3>
 </template>
 
 <style>

@@ -2,16 +2,17 @@
   "name": "valaxy-theme-shokax",
   "type": "module",
   "version": "0.3.2",
-  "packageManager": "pnpm@10.13.0",
+  "packageManager": "pnpm@10.13.1",
   "author": "zkz098",
   "main": "client/index.ts",
   "types": "types/index.d.ts",
   "dependencies": {
     "@iconify-json/ant-design": "^1.2.5",
-    "@iconify-json/simple-icons": "^1.2.42",
-    "shokax-uikit": "workspace:*"
+    "@iconify-json/simple-icons": "^1.2.45",
+    "shokax-uikit": "workspace:*",
+    "vue": "^3.5.18"
   },
   "devDependencies": {
-    "valaxy": "^0.23.6"
+    "valaxy": "^0.25.11"
   }
 }

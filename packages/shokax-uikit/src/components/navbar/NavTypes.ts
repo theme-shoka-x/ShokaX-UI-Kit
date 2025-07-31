@@ -1,5 +1,5 @@
 export interface NavItemType {
-  href?: string
+  href: string
   text: string
   icon?: string
   dropbox?: boolean

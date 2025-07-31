@@ -29,6 +29,7 @@ export interface SidebarConfig {
   author: {
     avatar: string
     name: string
+    description: string
   }
   socialLinks: SocialLink[]
   state: SidebarState
