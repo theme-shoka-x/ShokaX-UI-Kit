@@ -1,5 +1,5 @@
+import PagefindSearch from '@uikit/components/search/SearchPage.vue'
 import { createApp } from 'vue'
-import PagefindSearch from '@/components/search/SearchPage.vue'
 import 'virtual:uno.css'
 
 export function initializePagefindSearch(selector: string) {

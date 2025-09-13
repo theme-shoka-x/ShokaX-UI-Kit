@@ -5,7 +5,7 @@ import CodeBlock from './components/CodeBlock.vue'
 import DividerLine from './components/DividerLine.vue'
 import NavBar from './components/navbar/NavBar.vue'
 import PagefindSearch from './components/search/SearchPage.vue'
-import SidebarToC from './components/sidebar/sidebarToC.vue'
+import SidebarToC from './components/sidebar/sidebarTOC.vue'
 import ToolBar from './components/toolbar/ToolBar.vue'
 import Waves from './components/waves/Waves.vue'
 

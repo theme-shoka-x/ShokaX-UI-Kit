@@ -2,9 +2,9 @@
 import type { Ref } from 'vue'
 // @ts-expect-error no types for PagefindUI
 import { PagefindUI } from '@pagefind/default-ui'
-import { onMounted, ref, watch } from 'vue'
+import { useDarkMode } from '@uikit/composables/useDarkMode'
 
-import { useDarkMode } from '@/composables/useDarkMode'
+import { onMounted, ref, watch } from 'vue'
 import '@pagefind/default-ui/css/ui.css'
 
 const props = defineProps<{

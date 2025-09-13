@@ -2,7 +2,7 @@
 import type { SidebarState } from './types'
 import LinkElement from '../LinkElement.vue'
 
-defineProps<{state: SidebarState}>()
+defineProps<{ state: SidebarState }>()
 </script>
 
 <template>
