@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { chunk } from 'es-toolkit'
 import DividerLine from 'shokax-uikit/src/components/DividerLine.vue'
-import SitePanel from 'shokax-uikit/src/components/sidebar/SitePanel.vue'
+
 import { usePagination, usePostList, useSiteConfig } from 'valaxy'
 import PostSegments from '../components/PostSegments.vue'
 
-import { useThemeConfig } from '../composables/config'
-
 const posts = usePostList()
 const siteConfig = useSiteConfig()
-const themeConfig = useThemeConfig()
 
 const topPosts = posts.value.filter(post => post.top)
 
@@ -19,17 +16,6 @@ const { curPage, showPage, getTo, totalPages, prevTo, showPrev, nextTo, showNext
 </script>
 
 <template>
-  <SitePanel
-    :sidebar-config="{
-      author: {
-        name: siteConfig.author.name,
-        avatar: siteConfig.author.avatar,
-        description: siteConfig.author.intro || '',
-      },
-      socialLinks: siteConfig.social,
-      navbar: themeConfig.nav,
-    }"
-  />
   <div class="index wrap">
     <DividerLine content="置顶文章" />
     <PostSegments :post-list="topPosts" />

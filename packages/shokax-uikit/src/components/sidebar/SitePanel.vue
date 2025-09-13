@@ -12,9 +12,12 @@ defineProps<{
 </script>
 
 <template>
-  <Author :src="sidebarConfig.author.avatar" :name="sidebarConfig.author.name" :desc="sidebarConfig.author.description" />
-  <State v-if="sidebarConfig.state" :state="sidebarConfig.state" />
-  <SocialLinks :social-links="sidebarConfig.socialLinks" />
-  <NavBar :nav-links="sidebarConfig.navbar" />
+  <div class="flex flex-col items-center justify-center p-4 space-y-4">
+    <Author :src="sidebarConfig.author.avatar" :name="sidebarConfig.author.name" :desc="sidebarConfig.author.description" />
+    <State v-if="sidebarConfig.state" :state="sidebarConfig.state" />
+    <SocialLinks :social-links="sidebarConfig.socialLinks" />
+    <NavBar :nav-links="sidebarConfig.navbar" />
+  </div>
+
   <QuickBtns />
 </template>

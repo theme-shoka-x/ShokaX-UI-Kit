@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { useWindowScroll } from '@vueuse/core'
-import { onMounted, ref } from 'vue'
+import { useWindowScroll, useWindowSize } from '@vueuse/core'
+import { onMounted, ref, watch } from 'vue'
 
 const commentOffset = ref(0)
+const { width, height } = useWindowSize()
 
 onMounted(() => {
-  commentOffset.value = document.getElementById('comment')?.offsetTop ?? 0
-})
+  function updateCommentOffset() {
+    commentOffset.value = document.getElementById('comment')?.offsetTop ?? 0
+  }
 
-window.addEventListener('resize', () => {
-  commentOffset.value = document.getElementById('comment')?.offsetTop ?? 0
+  watch([width, height], () => {
+    updateCommentOffset()
+  }, { immediate: true })
 })
 
 const { y } = useWindowScroll({ behavior: 'smooth' })

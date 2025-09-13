@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useWindowSize } from '@vueuse/core'
 import { ref } from 'vue'
 
 const props = defineProps<{
@@ -7,7 +6,6 @@ const props = defineProps<{
 }>()
 
 const currentState = ref(false)
-const { width } = useWindowSize()
 
 function toggleState() {
   currentState.value = !currentState.value
@@ -16,7 +14,7 @@ function toggleState() {
 </script>
 
 <template>
-  <div v-if="width <= 991" class="flex flex-col cursor-pointer items-center justify-center" @click="toggleState">
+  <div class="flex flex-col cursor-pointer items-center justify-center max-lg:hidden" @click="toggleState">
     <div class="box-unset w-5.5 p-5 line-height-0">
       <span class="line" :class="{ 'line-1': currentState }" />
       <span class="line mt-0.75" :class="{ 'line-2': currentState }" />

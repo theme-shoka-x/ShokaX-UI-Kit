@@ -28,41 +28,41 @@ export const defaultThemeConfig: ThemeConfig = {
     },
   },
 
-  nav: [
-    {
-      href: '/',
-      text: 'Home',
-      icon: 'i-ri-home-line',
-    },
-    {
-      href: '/about',
-      text: 'About',
-      icon: 'i-ri-user-6-line',
-    },
-    {
-      href: '/contact',
-      text: 'Contact',
-      icon: 'i-ri-mail-line',
-    },
-    {
-      dropbox: true,
-      text: 'Account',
-      href: '/account',
-      icon: 'i-ri-account-circle-line',
-      dropboxItems: [
-        {
-          href: '/login',
-          text: 'Login',
-          icon: 'i-ri-login-circle-line',
-        },
-        {
-          href: '/register',
-          text: 'Register',
-          icon: 'i-ri-survey-line',
-        },
-      ],
-    },
-  ],
+  // nav: [
+  //   {
+  //     href: '/',
+  //     text: 'Home',
+  //     icon: 'i-ri-home-line',
+  //   },
+  //   {
+  //     href: '/about',
+  //     text: 'About',
+  //     icon: 'i-ri-user-6-line',
+  //   },
+  //   {
+  //     href: '/contact',
+  //     text: 'Contact',
+  //     icon: 'i-ri-mail-line',
+  //   },
+  //   {
+  //     dropbox: true,
+  //     text: 'Account',
+  //     href: '/account',
+  //     icon: 'i-ri-account-circle-line',
+  //     dropboxItems: [
+  //       {
+  //         href: '/login',
+  //         text: 'Login',
+  //         icon: 'i-ri-login-circle-line',
+  //       },
+  //       {
+  //         href: '/register',
+  //         text: 'Register',
+  //         icon: 'i-ri-survey-line',
+  //       },
+  //     ],
+  //   },
+  // ],
   cover: '',
 }
 
@@ -90,6 +90,14 @@ export function generateSafelist(themeConfig: ThemeConfig) {
   const footerIcon = themeConfig.footer?.icon?.name
   if (footerIcon)
     safelist.push(footerIcon)
+
+  const navBarIcons = themeConfig.nav?.flatMap((item) => {
+    const mainIcon = item.icon ? [item.icon] : []
+    const dropboxIcons = item.dropboxItems?.map(d => d.icon) ?? []
+    return [...mainIcon, ...dropboxIcons]
+  })
+
+  safelist.push(...navBarIcons.filter(Boolean) as string[])
 
   return safelist
 }

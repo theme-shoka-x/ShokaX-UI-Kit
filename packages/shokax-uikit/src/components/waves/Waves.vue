@@ -5,6 +5,7 @@ import { useTemplateRef } from 'vue'
 const waves = useTemplateRef('waves')
 
 const wavesIsVisible = useElementVisibility(waves)
+
 </script>
 
 <template>

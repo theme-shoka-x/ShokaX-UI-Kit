@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { useWindowScroll } from '@vueuse/core'
-import { onMounted, ref } from 'vue'
+import { useWindowScroll, useWindowSize } from '@vueuse/core'
+import { onMounted, ref, watch } from 'vue'
 
 const scrollHeight = ref(1)
+const { width, height } = useWindowSize()
 
 onMounted(() => {
-  scrollHeight.value = document.documentElement.scrollHeight - window.innerHeight
-})
-
-window.addEventListener('resize', () => {
-  scrollHeight.value = document.documentElement.scrollHeight - window.innerHeight
+  watch([width, height], () => {
+    scrollHeight.value = document.documentElement.scrollHeight - (height.value || 0)
+  }, { immediate: true })
 })
 
 const { y } = useWindowScroll({ behavior: 'smooth' })

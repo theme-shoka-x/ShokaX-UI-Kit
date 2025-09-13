@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { PageData, Post } from 'valaxy'
-import { useSiteConfig } from '../composables/config'
+import { useSiteConfig } from 'valaxy'
 
 defineProps<{
   frontmatter: Post
@@ -8,7 +8,7 @@ defineProps<{
 }>()
 const siteConfig = useSiteConfig()
 </script>
-   
+
 <template>
   <main>
     <div w="full" flex="~">
@@ -23,7 +23,7 @@ const siteConfig = useSiteConfig()
                 <slot name="main-content-md" />
                 <slot />
               </ValaxyMd>
-            </div>  
+            </div>
             <slot name="main-content-after" />
           </slot>
         </div>
