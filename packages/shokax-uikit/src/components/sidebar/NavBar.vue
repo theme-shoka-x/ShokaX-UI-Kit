@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NavItemType } from '../navbar/NavTypes'
 import { useBrowserLocation } from '@vueuse/core'
-import DropboxItem from './navbar/dropboxItem.vue'
+import DropboxItem from './navbar/DropboxItem.vue'
 import NavItem from './navbar/NavItem.vue'
 
 defineProps<{
@@ -18,7 +18,7 @@ function isActive(href: string) {
   <ul>
     <template v-for="item in navLinks" :key="item.href">
       <li>
-        <NavItem v-if="!item.dropbox" :item="item" :class="{active: isActive(item.href)}" />
+        <NavItem v-if="!item.dropbox" :item="item" :class="{ active: isActive(item.href) }" />
         <DropboxItem v-else :item="item" />
       </li>
     </template>

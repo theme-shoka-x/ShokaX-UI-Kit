@@ -47,6 +47,7 @@ export const defaultThemeConfig: ThemeConfig = {
     {
       dropbox: true,
       text: 'Account',
+      href: '/account',
       icon: 'i-ri-account-circle-line',
       dropboxItems: [
         {
@@ -62,7 +63,7 @@ export const defaultThemeConfig: ThemeConfig = {
       ],
     },
   ],
-  cover: '' 
+  cover: '',
 }
 
 // write a vite plugin

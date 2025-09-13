@@ -3,8 +3,9 @@ import type { SidebarConfig } from './types'
 import { useElementVisibility } from '@vueuse/core'
 import { inject } from 'vue'
 import { _PAGE_WAVES_ELEMENT } from '../../symbols'
+import SitePanel from './SitePanel.vue';
 
-defineProps<SidebarConfig>()
+const props = defineProps<SidebarConfig>()
 
 const isWaveVisible = useElementVisibility(inject(_PAGE_WAVES_ELEMENT))
 </script>
@@ -15,7 +16,7 @@ const isWaveVisible = useElementVisibility(inject(_PAGE_WAVES_ELEMENT))
       <div class="absolute m-0 min-h-7.5 inline-flex pb-2.5 pt-7.5">
         <!-- Sidebar Header -->
       </div>
-      <!-- Sidebar Content -->
+      <SitePanel :sidebar-config="props"/>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { NavItemType } from '@/components/navbar/NavTypes';
-import LinkElement from '@/components/LinkElement.vue';
+import type { NavItemType } from '@uikit/components/navbar/NavTypes'
+import LinkElement from '@uikit/components/LinkElement.vue'
 
 defineProps<{
   item: NavItemType

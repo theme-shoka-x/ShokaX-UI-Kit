@@ -5,7 +5,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@uikit/*": ["src/*"]
     },
     /* Linting */
     "strict": true,

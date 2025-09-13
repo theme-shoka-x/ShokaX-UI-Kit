@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { NavItemType } from '@/components/navbar/NavTypes'
+import type { NavItemType } from '@uikit/components/navbar/NavTypes'
+import LinkElement from '@uikit/components/LinkElement.vue'
 import { useBrowserLocation, useElementHover } from '@vueuse/core'
 import { useTemplateRef } from 'vue'
-import LinkElement from '@/components/LinkElement.vue'
 
 defineProps<{
   item: NavItemType
@@ -16,7 +16,7 @@ function isActive(href: string) {
   return location.value.pathname === href
 }
 
-function isSubItemsActive(item: NavItemType){
+function isSubItemsActive(item: NavItemType) {
   let flag = false
   item.dropboxItems?.forEach((subItem) => {
     if (location.value.pathname === subItem.href) {
@@ -35,7 +35,7 @@ function isSubItemsActive(item: NavItemType){
   <Transition>
     <ul v-show="hovering || isSubItemsActive(item)">
       <li v-for="subItem in item.dropboxItems" :key="subItem.href">
-        <LinkElement :href="subItem.href" :class="{active: isActive(subItem.href)}">
+        <LinkElement :href="subItem.href" :class="{ active: isActive(subItem.href) }">
           <i v-if="subItem.icon" :class="subItem.icon" />
           {{ subItem.text }}
         </LinkElement>

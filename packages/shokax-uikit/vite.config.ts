@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': '/src',
+        '@uikit': '/src',
       },
     },
   }

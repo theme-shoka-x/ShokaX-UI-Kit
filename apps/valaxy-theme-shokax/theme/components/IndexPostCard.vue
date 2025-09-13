@@ -33,7 +33,7 @@ defineProps<{
         </span>
       </div>
     </div>
-    <div>
+    <div class="excerpt">
       {{ excerpt }}
     </div>
     <AppLink :to="href">

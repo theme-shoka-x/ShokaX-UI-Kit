@@ -20,7 +20,7 @@ export interface SidebarState {
 
 export interface SocialLink {
   name: string
-  href: string
+  link: string
   icon: string
   color?: string
 }
@@ -32,6 +32,6 @@ export interface SidebarConfig {
     description: string
   }
   socialLinks: SocialLink[]
-  state: SidebarState
+  state?: SidebarState
   navbar: NavItemType[]
 }

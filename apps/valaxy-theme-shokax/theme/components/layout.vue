@@ -10,7 +10,8 @@ import { useThemeConfig } from '../composables/config'
 const themeConfig = useThemeConfig()
 const siteConfig = useSiteConfig()
 
-provide('linkElName', 'AppLink')
+provide('linkElName', 'a')
+console.log(themeConfig.value.nav)
 </script>
 
 <template>
@@ -59,8 +60,8 @@ provide('linkElName', 'AppLink')
 
     <ToolBar :show-contents-click-callback="() => void 0" />
 
-    <StarterFooter>
+    <!-- <StarterFooter>
       <slot name="footer" />
-    </StarterFooter>
+    </StarterFooter> -->
   </div>
 </template>

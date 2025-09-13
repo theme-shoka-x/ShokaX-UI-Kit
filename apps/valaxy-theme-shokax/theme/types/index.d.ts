@@ -1,4 +1,4 @@
-import { NavItemType } from 'shokax-uikit/src/components/navbar/NavTypes.ts'
+import type { NavItemType } from 'shokax-uikit/src/components/navbar/NavTypes.ts'
 import type { DefaultTheme } from 'valaxy'
 
 export namespace StarterTheme {
