@@ -2,7 +2,7 @@
   "name": "shokax-monorepo",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.17.1",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -16,23 +16,25 @@
     "test:e2e": "turbo run test:e2e"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^5.0.0",
+    "@antfu/eslint-config": "^5.4.1",
     "@iconify-json/ri": "^1.2.5",
-    "@unocss/reset": "66.3.3",
+    "@unocss/reset": "66.5.2",
     "@vitest/coverage-v8": "^3.2.4",
-    "esbuild": "^0.25.8",
-    "eslint": "^9.32.0",
-    "unocss": "^66.3.3",
-    "vite": "^7.0.6",
-    "vitest": "^3.2.4"
+    "esbuild": "^0.25.10",
+    "eslint": "^9.36.0",
+    "unocss": "^66.5.2",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4",
+    "vue": "^3.5.22"
   },
   "devDependencies": {
-    "@types/node": "^24.1.0",
-    "turbo": "^2.5.5"
+    "@types/node": "^24.3.3",
+    "turbo": "^2.5.8"
   },
   "pnpm": {
     "overrides": {
-      "vite": "npm:rolldown-vite@latest"
+      "vite": "npm:rolldown-vite@latest",
+      "vue": "npm:vue@latest"
     },
     "onlyBuiltDependencies": [
       "esbuild",

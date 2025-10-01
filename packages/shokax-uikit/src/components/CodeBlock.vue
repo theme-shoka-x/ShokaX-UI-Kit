@@ -42,8 +42,27 @@ function insertGlobalFontFace(cssCode: string) {
   return cssCode.replace(/@font-face\s*\{[^}]+\}/g, '')
 }
 
+function getCodeLanguage() {
+  const codeElement = codeblock.value?.firstElementChild?.firstElementChild
+
+  if (!codeElement) {
+    return
+  }
+
+  const classList = Array.from(codeElement.classList)
+  for (const cls of classList) {
+    if (cls.startsWith('language-')) {
+      return cls.replace('language-', '')
+    }
+  }
+}
+
+const codeLanguage = ref('')
+
 // 插入其余 CSS 到 ShadowRoot
 onMounted(() => {
+  codeLanguage.value = getCodeLanguage() ?? ''
+
   const shadowRoot = shadowHost.value?.getRootNode?.()
   // @ts-expect-error temp
   if (window.__cssCode__ && shadowRoot) {
@@ -59,14 +78,15 @@ const { isDark } = useDarkMode()
 </script>
 
 <template>
-  <div ref="shadowHost" class="codeblock text-4" :class="{ dark: isDark }">
+  <div ref="shadowHost" class="codeblock" :class="{ dark: isDark }">
     <div class="header min-h-6 pb-2">
       <div class="float-left flex flex-row gap-2.5">
         <div class="ml-3.25 mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(252,_98,_93)]" />
         <div class="mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(253,_188,_64)]" />
         <div class="mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(53,_205,_75)]" />
+        <span class="ml-3 mt-1.75 text-4 color-[var(--grey-4)]">{{ codeLanguage }}</span>
       </div>
-      <div class="float-right flex flex-row pr-6 pt-2">
+      <div class="float-right flex flex-row pr-6 pt-2 color-[var(--grey-5)]">
         <button
           class="cursor-pointer"
           :class="{ 'i-ri-file-copy-fill': !copied, 'i-ri-check-fill': copied }"
@@ -100,22 +120,27 @@ const { isDark } = useDarkMode()
 
 :deep(*) {
   font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.925rem;
+  line-height: 1.25rem;
   line-break: anywhere;
   white-space: break-spaces;
 }
 
 :deep(pre) {
+  padding: 0.925rem;
   margin: 0;
-  padding: 0.75rem;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  background-color: var(--grey-1) !important;
 }
 
 :deep(.line) {
   text-indent: -2.5rem;
   padding-left: 2.5rem;
+}
+
+:deep(.line):hover {
+  background-color: var(--grey-2);
 }
 
 :deep(code) {
@@ -132,7 +157,7 @@ const { isDark } = useDarkMode()
   margin-right: 1.5rem;
   display: inline-block;
   text-align: right;
-  color: rgba(115, 138, 148, 0.4);
+  color: var(--grey-5);
 }
 
 :deep(.diff .remove) {
@@ -172,8 +197,6 @@ html[data-theme='dark'] .codeblock {
 <style lang="css">
 html[data-theme='dark'] .shiki,
 html[data-theme='dark'] .shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
@@ -181,8 +204,6 @@ html[data-theme='dark'] .shiki span {
 
 .dark .shiki,
 .dark .shiki span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;

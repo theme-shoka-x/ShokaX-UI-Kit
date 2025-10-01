@@ -40,9 +40,9 @@ export interface ThemeConfig extends DefaultTheme.Config {
 
     /**
      * Chinese Users | 中国用户
-     * 备案 ICP
-     * 国内用户需要在网站页脚展示备案 ICP 号
-     * https://beian.miit.gov.cn/
+     * 备案 ICP & 公网安备 MPS
+     * 国内用户需要在网站页脚展示备案 ICP 号和公网安备 MPS 号
+     * https://beian.miit.gov.cn/ & https://beian.mps.gov.cn/
      */
     beian: {
       enable: boolean
@@ -50,6 +50,10 @@ export interface ThemeConfig extends DefaultTheme.Config {
        * 苏ICP备xxxxxxxx号
        */
       icp: string
+      /**
+       * 苏公网安备 xxxxxxxxx 号
+       */
+      mps: string
     }
   }>
 

@@ -8,7 +8,8 @@ import Waves from 'shokax-uikit/src/components/waves/Waves.vue'
 import { _PAGE_WAVES_ELEMENT } from 'shokax-uikit/src/symbols.js'
 import { useSiteConfig } from 'valaxy'
 import { provide, useTemplateRef } from 'vue'
-import { useThemeConfig } from '../composables/config'
+import { useThemeConfig } from '../composables'
+import ShokaxFooter from './ShokaxFooter.vue'
 
 const themeConfig = useThemeConfig()
 const siteConfig = useSiteConfig()
@@ -22,20 +23,20 @@ provide(_PAGE_WAVES_ELEMENT, waves)
   <div class="antialiased">
     <Brand :is-home="true" art-board-content="111" headline-content="222" />
 
-    <NavBar :nav-links="themeConfig.nav" :click-toggle-callback="() => void 0" :name="siteConfig.title" />
+    <NavBar :click-toggle-callback="() => void 0" :name="siteConfig.title" :nav-links="themeConfig.nav" />
     <div class="h-100" />
     <Cover :src="themeConfig.cover" />
     <Waves ref="waves" />
-    <div class="m-a w-80vw flex flex-row">
+    <div class="m-a w-90vw flex flex-row">
       <Sidebar
-        class="w-72 flex-shrink-0 overflow-x-hidden overflow-y-auto p-2"
         :author="{
           name: siteConfig.author.name,
           avatar: siteConfig.author.avatar,
           description: siteConfig.author.intro || '',
         }"
-        :social-links="siteConfig.social"
         :navbar="themeConfig.nav"
+        :social-links="siteConfig.social"
+        class="w-72 flex-shrink-0 overflow-x-hidden overflow-y-auto p-2"
       />
 
       <main>
@@ -77,6 +78,8 @@ provide(_PAGE_WAVES_ELEMENT, waves)
     </div>
 
     <ToolBar :show-contents-click-callback="() => void 0" />
+
+    <ShokaxFooter />
 
     <!-- <StarterFooter>
       <slot name="footer" />

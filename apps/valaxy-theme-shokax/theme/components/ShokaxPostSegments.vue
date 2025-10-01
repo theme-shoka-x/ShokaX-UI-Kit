@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PostFrontMatter } from 'valaxy'
-import IndexPostCard from './IndexPostCard.vue'
+import ShokaxIndexPostCard from './ShokaxIndexPostCard.vue'
 
 defineProps<{
   postList: Partial<PostFrontMatter>[]
@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <div class="segments posts">
     <template v-for="post in postList" :key="post?.abbrlink">
-      <IndexPostCard
+      <ShokaxIndexPostCard
         v-if="post"
         :date="new Date(post.date ?? '1970-01-01')"
         :title="typeof post.title === 'string' ? post.title : post.title?.[post.lang || ''] || ''"

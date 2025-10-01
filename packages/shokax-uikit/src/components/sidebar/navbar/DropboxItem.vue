@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { NavItemType } from '@uikit/components/navbar/NavTypes'
 import LinkElement from '@uikit/components/LinkElement.vue'
 import { useBrowserLocation, useElementHover } from '@vueuse/core'
@@ -12,6 +12,7 @@ const linkEl = useTemplateRef<HTMLAnchorElement>('linkEl')
 const hovering = useElementHover(linkEl)
 
 const location = useBrowserLocation()
+
 function isActive(href: string) {
   return location.value.pathname === href
 }
@@ -29,14 +30,14 @@ function isSubItemsActive(item: NavItemType) {
 
 <template>
   <LinkElement ref="linkEl" :href="item.href">
-    <i v-if="item.icon" :class="item.icon" />
+    <div v-if="item.icon" :class="item.icon" class="inline-block align-text-bottom" />
     {{ item.text }}
   </LinkElement>
-  <Transition>
+  <Transition name="slide-down">
     <ul v-show="hovering || isSubItemsActive(item)">
       <li v-for="subItem in item.dropboxItems" :key="subItem.href">
-        <LinkElement :href="subItem.href" :class="{ active: isActive(subItem.href) }">
-          <i v-if="subItem.icon" :class="subItem.icon" />
+        <LinkElement :class="{ active: isActive(subItem.href) }" :href="subItem.href">
+          <div v-if="subItem.icon" :class="subItem.icon" class="inline-block align-text-bottom" />
           {{ subItem.text }}
         </LinkElement>
       </li>
@@ -45,5 +46,22 @@ function isSubItemsActive(item: NavItemType) {
 </template>
 
 <style lang="css" scoped>
+@keyframes slideDownIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.slide-down-enter-active {
+  animation: slideDownIn 0.3s ease-out forwards;
+}
+
+.slide-down-leave-active {
+  animation: slideDownIn 0.3s ease-out reverse forwards;
+}
 </style>

@@ -3,7 +3,7 @@ import { chunk } from 'es-toolkit'
 import DividerLine from 'shokax-uikit/src/components/DividerLine.vue'
 
 import { usePagination, usePostList, useSiteConfig } from 'valaxy'
-import PostSegments from '../components/PostSegments.vue'
+import ShokaxPostSegments from '../components/ShokaxPostSegments.vue'
 
 const posts = usePostList()
 const siteConfig = useSiteConfig()
@@ -18,9 +18,9 @@ const { curPage, showPage, getTo, totalPages, prevTo, showPrev, nextTo, showNext
 <template>
   <div class="index wrap">
     <DividerLine content="置顶文章" />
-    <PostSegments :post-list="topPosts" />
+    <ShokaxPostSegments :post-list="topPosts" />
     <DividerLine content="文章列表" />
-    <PostSegments :post-list="paginatedPosts[curPage - 1]" />
+    <ShokaxPostSegments :post-list="paginatedPosts[curPage - 1]" />
   </div>
   <div class="pagination">
     <RouterLink v-if="showPrev" :to="prevTo">

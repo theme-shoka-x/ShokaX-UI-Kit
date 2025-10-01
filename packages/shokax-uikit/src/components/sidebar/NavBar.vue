@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { NavItemType } from '../navbar/NavTypes'
 import { useBrowserLocation } from '@vueuse/core'
 import DropboxItem from './navbar/DropboxItem.vue'
@@ -9,16 +9,17 @@ defineProps<{
 }>()
 
 const location = useBrowserLocation()
+
 function isActive(href: string) {
   return location.value.pathname === href
 }
 </script>
 
 <template>
-  <ul>
+  <ul class="m-0 w-full list-none bg-transparent p-5">
     <template v-for="item in navLinks" :key="item.href">
-      <li>
-        <NavItem v-if="!item.dropbox" :item="item" :class="{ active: isActive(item.href) }" />
+      <li class="mb-2.5 block w-full rounded-3.75 color-[var(--grey-5)] line-height-12">
+        <NavItem v-if="!item.dropbox" :class="{ active: isActive(item.href) }" :item="item" />
         <DropboxItem v-else :item="item" />
       </li>
     </template>
@@ -33,7 +34,7 @@ function isActive(href: string) {
   transition: all 0.3s ease-in-out;
 }
 
-.active {
+.active:hover {
   box-shadow: 0 0 0.75rem var(--color-pink);
   color: var(--grey-0);
 }
