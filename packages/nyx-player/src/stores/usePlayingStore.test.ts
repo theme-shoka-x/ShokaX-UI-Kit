@@ -88,7 +88,7 @@ describe('parse (store deserialization)', () => {
 
     expect(Array.isArray(result.playlists)).toBe(true)
     expect(result.playlists[0]).toBeInstanceOf(PlayList)
-    expect(result.playlists[0].name).toBe('Test Playlist')
-    expect(typeof result.playlists[0].getCycleSong).toBe('function')
+    expect(result.playlists[0]?.name).toBe('Test Playlist')
+    expect(typeof result.playlists[0]?.getCycleSong).toBe('function')
   })
 })

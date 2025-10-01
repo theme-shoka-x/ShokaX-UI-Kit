@@ -18,6 +18,7 @@ export class PlayList {
   name: string
   sIndex: number
   _type: string
+
   constructor(url?: string, name?: string, sIndex?: number) {
     this._type = 'playlist'
     this.url = url ?? ''
@@ -42,9 +43,12 @@ export class PlayList {
       ['y.qq.com.*playsquare/(\\w+)(.html)?', 'tencent', 'playlist'],
       ['y.qq.com.*playlist/(\\w+)(.html)?', 'tencent', 'playlist'],
     ].forEach((rule) => {
+      if (!rule[0]) {
+        return
+      }
       const patt = new RegExp(rule[0])
       const res = patt.exec(this.url)
-      if (res !== null) {
+      if (res !== null && res !== undefined && res[1]) {
         result = {
           id: res[1],
           provider: rule[1] as 'netease' | 'tencent',

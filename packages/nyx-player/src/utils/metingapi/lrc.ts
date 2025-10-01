@@ -8,7 +8,7 @@ export function parseLyricLine(line: string) {
   const timePattern = /\[(\d{2}):(\d{2})(?:\.(\d{2,3}))?\]/
   const match = timePattern.exec(line) as RegExpExecArray
 
-  if (!match) {
+  if (!match || !match[1] || !match[2]) {
     throw new Error('Invalid lyric line format')
   }
 
@@ -53,8 +53,8 @@ export function parseLyric(lyric: string) {
   })
 
   for (let i = 0; i < parsedLines.length; i++) {
-    const { start, text } = parsedLines[i]
-    const end = i === parsedLines.length - 1 ? Infinity : parsedLines[i + 1].start
+    const { start, text } = parsedLines[i] as LyricLine
+    const end = i === parsedLines.length - 1 ? Infinity : (parsedLines[i + 1]?.start) ?? Infinity
     lyrics.push({ text, start, end })
   }
 

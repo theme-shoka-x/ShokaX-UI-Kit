@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { Ref } from 'vue'
 import type { Preset, RequiredColorsConfig } from './presets'
 import { onMounted, provide, ref, useCssVars, watch } from 'vue'
@@ -113,7 +113,7 @@ onMounted(() => {
   }
 })
 
-const stylesPresent = props.styles || presets.nyx
+const stylesPresent = props.styles || presets.nyx as Preset
 
 if (props.preset) {
   const preset = presets[props.preset]
