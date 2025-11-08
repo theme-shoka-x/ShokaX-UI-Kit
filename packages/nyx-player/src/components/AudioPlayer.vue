@@ -6,9 +6,12 @@ import { computed, inject, onMounted, useTemplateRef } from 'vue'
 import { useRefreshPlayStateTrigger } from '@/composables/useRefreshPlayStateTrigger'
 import { usePlayingStore } from '@/stores/usePlayingStore'
 import { PlayList } from '@/utils/metingapi/playlist'
+import { ConcurrencyPool } from '@/utils/concurrency-pool'
 import AudioController from './controller/AudioController.vue'
 import PlayListTabs from './playlist/PlayListTabs.vue'
 import AudioPreview from './preview/AudioPreview.vue'
+
+const pool = new ConcurrencyPool(3) // 限制并发请求数为3
 
 const props = defineProps<{
   showPlayer: boolean
@@ -36,12 +39,28 @@ onMounted(() => {
 })
 
 if (playingStore.playlists.length === 0) {
-  await Promise.all(props.playlistURLs.map(async (url, index) => {
+  const initPlaylist = async (url: { url: string; name: string }, index: number) => {
     const playlist = new PlayList(url.url, url.name, index)
-    playingStore.playlists.push(playlist)
-    playlist.parserURL()
-    await playlist.fetchPlaylist()
-  }))
+    try {
+      playlist.parserURL()
+      await playlist.fetchPlaylist()
+      playingStore.playlists[index] = playlist
+    } catch (error) {
+      console.error(`Failed to initialize playlist ${url.name}:`, error)
+      // Create a placeholder playlist that can be retried later
+      playingStore.playlists[index] = playlist
+    }
+  }
+
+  // Pre-allocate array to maintain order
+  playingStore.playlists = new Array(props.playlistURLs.length)
+  
+  // Queue all playlists for initialization through the concurrency pool
+  await Promise.allSettled(
+    props.playlistURLs.map((url, index) =>
+      pool.add(() => initPlaylist(url, index))
+    )
+  )
 }
 
 const updateCurrentTime = throttle((event: Event) => {
