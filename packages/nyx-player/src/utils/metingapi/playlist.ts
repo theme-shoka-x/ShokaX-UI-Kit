@@ -67,8 +67,42 @@ export class PlayList {
     if (!this.accessibleURL) {
       throw new Error('Playlist URL is not accessible')
     }
-    const res = await fetch(`${METING_API}?type=${this.accessibleURL.type}&id=${this.accessibleURL.id}&server=${this.accessibleURL.provider}`)
-    this.playlist = await res.json() as APIResponse[]
+
+    const maxRetries = 3
+    let lastError: Error | null = null
+
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        const res = await fetch(
+          `${METING_API}?type=${this.accessibleURL.type}&id=${this.accessibleURL.id}&server=${this.accessibleURL.provider}`,
+          {
+            headers: { 'Accept': 'application/json' },
+            signal: AbortSignal.timeout(10000) // 10s timeout
+          }
+        )
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+        
+        const data = await res.json()
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid playlist data received')
+        }
+        
+        this.playlist = data as APIResponse[]
+        return
+      } catch (error) {
+        lastError = error as Error
+        console.warn(`Attempt ${attempt + 1} failed for playlist ${this.name}:`, error)
+        // exponential backoff
+        if (attempt < maxRetries - 1) {
+          await new Promise(resolve => setTimeout(resolve, Math.min(1000 * Math.pow(2, attempt), 5000)))
+        }
+      }
+    }
+    
+    throw new Error(`Failed to fetch playlist after ${maxRetries} attempts: ${lastError?.message}`)
   }
 
   getCurrentSong() {
