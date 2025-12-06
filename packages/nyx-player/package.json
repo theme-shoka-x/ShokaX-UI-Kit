@@ -29,31 +29,31 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@iconify-json/ri": "^1.2.5",
+    "@iconify-json/ri": "catalog:",
     "@vue/test-utils": "^2.4.6",
-    "@vueuse/core": "^14.1.0",
+    "@vueuse/core": "catalog:",
     "destr": "^2.0.5",
-    "es-toolkit": "^1.39.10",
+    "es-toolkit": "catalog:",
     "mitt": "^3.0.1",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.5.0",
     "rollup-plugin-visualizer": "^6.0.3",
-    "unocss": "^66.5.2",
-    "vue": "^3.5.22"
+    "unocss": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.4.2",
+    "@antfu/eslint-config": "catalog:",
     "@playwright/test": "^1.55.1",
-    "@unocss/eslint-plugin": "^66.5.2",
-    "@unocss/preset-icons": "^66.5.2",
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@unocss/eslint-plugin": "catalog:",
+    "@unocss/preset-icons": "catalog:",
+    "@vitejs/plugin-vue": "^6.0.2",
     "@vue/tsconfig": "^0.8.1",
-    "eslint": "^9.36.0",
-    "eslint-plugin-format": "^1.0.2",
-    "typescript": "~5.9.3",
-    "vite": "^7.1.7",
-    "vite-plugin-dts": "^4.5.4",
-    "vue-tsc": "^3.1.0"
+    "eslint": "catalog:",
+    "eslint-plugin-format": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
