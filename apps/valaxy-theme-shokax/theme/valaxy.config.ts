@@ -10,14 +10,20 @@ export default defineTheme<ThemeConfig>((options) => {
   return {
     themeConfig: defaultThemeConfig,
     vite: {
+      build: {
+        minify: false,
+        sourcemap: true,
+      },
       optimizeDeps: {
         include: ['dayjs'],
       },
       plugins: [themePlugin(options)],
       resolve: {
         alias: {
+          // 'dayjs': 'dayjs/esm/index.js',
           '@uikit': uikitSrc,
           'shokax-uikit/src': uikitSrc,
+          'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
         },
       },
     },

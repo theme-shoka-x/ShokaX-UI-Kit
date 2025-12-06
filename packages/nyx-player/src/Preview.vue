@@ -18,7 +18,7 @@ const playBtn = useTemplateRef('playBtn')
 </script>
 
 <template>
-  <App :urls="url" :show-btn="showBtn" :play-btn="playBtn" dark-mode-target="html[data-theme=&quot;dark&quot;]" />
+  <App :urls="url" :show-btn="showBtn" :play-btn="playBtn" dark-mode-target="html[data-theme='dark']" />
   <button id="test" ref="showBtn">
     {{ playingStore.showPlayer ? '隐藏' : '显示' }}播放器
   </button>
