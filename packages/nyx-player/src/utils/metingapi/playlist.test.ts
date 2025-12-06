@@ -52,16 +52,24 @@ describe('playList', () => {
   it('should fetch playlist from API', async () => {
     playlist.parserURL()
 
-    globalThis.fetch = vi.fn(() =>
+    const fetchMock = vi.fn(() =>
       Promise.resolve({
+        ok: true,
+        status: 200,
         json: () => Promise.resolve(mockSongs),
       }),
-    ) as any
+    )
+
+    globalThis.fetch = fetchMock as unknown as typeof fetch
 
     await playlist.fetchPlaylist()
     expect(playlist.playlist).toEqual(mockSongs)
-    expect(globalThis.fetch).toHaveBeenCalledWith(
+    expect(fetchMock).toHaveBeenCalledWith(
       `${METING_API}?type=playlist&id=123456&server=netease`,
+      expect.objectContaining({
+        headers: { Accept: 'application/json' },
+        signal: expect.any(AbortSignal),
+      }),
     )
   })
 

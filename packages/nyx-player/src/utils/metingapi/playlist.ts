@@ -76,32 +76,33 @@ export class PlayList {
         const res = await fetch(
           `${METING_API}?type=${this.accessibleURL.type}&id=${this.accessibleURL.id}&server=${this.accessibleURL.provider}`,
           {
-            headers: { 'Accept': 'application/json' },
-            signal: AbortSignal.timeout(10000) // 10s timeout
-          }
+            headers: { Accept: 'application/json' },
+            signal: AbortSignal.timeout(10000), // 10s timeout
+          },
         )
-        
+
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`)
         }
-        
+
         const data = await res.json()
         if (!Array.isArray(data)) {
-          throw new Error('Invalid playlist data received')
+          throw new TypeError('Invalid playlist data received')
         }
-        
+
         this.playlist = data as APIResponse[]
         return
-      } catch (error) {
+      }
+      catch (error) {
         lastError = error as Error
         console.warn(`Attempt ${attempt + 1} failed for playlist ${this.name}:`, error)
         // exponential backoff
         if (attempt < maxRetries - 1) {
-          await new Promise(resolve => setTimeout(resolve, Math.min(1000 * Math.pow(2, attempt), 5000)))
+          await new Promise(resolve => setTimeout(resolve, Math.min(1000 * 2 ** attempt, 5000)))
         }
       }
     }
-    
+
     throw new Error(`Failed to fetch playlist after ${maxRetries} attempts: ${lastError?.message}`)
   }
 
