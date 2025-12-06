@@ -11,32 +11,29 @@ Valaxy-Theme-Starter<sup><em>(vue)</em></sup>
 
 ### Clone to local
 
-> Use [pnpm](https://pnpm.io/), because we need its workspace.
+> 使用 [Bun](https://bun.sh/) 作为工作区包管理器。
 
 ```bash
 npx degit YunYouJun/valaxy-theme-starter valaxy-theme-name
 
 cd valaxy-theme-name
 
-# If you don't have pnpm installed
-npm install -g pnpm
-
-pnpm i
+bun install
 ```
 
 ### Development
 
 ```bash
 # dev node
-pnpm dev
+bun run dev
 # dev client
-pnpm demo
+bun run demo
 ```
 
 ### Build
 
 ```bash
-pnpm build
+bun run build
 ```
 
 ### Release
@@ -46,7 +43,7 @@ pnpm build
 #### Manual
 
 ```bash
-pnpm ci:publish
+bun run ci:publish
 ```
 
 #### Auto by GitHub Actions
@@ -60,7 +57,7 @@ Add `New repository secret`:
 - `NPM_TOKEN`: `your npm token` (Generate from your npm `Access Tokens` - `Automation`)
 
 ```bash
-npm run release
+bun run release
 # choose your version to automatic release
 ```
 

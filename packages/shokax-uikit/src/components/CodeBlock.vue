@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { onMounted, ref, useTemplateRef } from 'vue'
 import { useDarkMode } from '../composables/useDarkMode'
 
@@ -78,7 +78,7 @@ const { isDark } = useDarkMode()
 </script>
 
 <template>
-  <div ref="shadowHost" class="codeblock" :class="{ dark: isDark }">
+  <div ref="shadowHost" :class="{ dark: isDark }" class="codeblock">
     <div class="header min-h-6 pb-2">
       <div class="float-left flex flex-row gap-2.5">
         <div class="ml-3.25 mt-2.25 h-3.75 w-3.75 rounded-50% bg-[rgb(252,_98,_93)]" />
@@ -88,8 +88,8 @@ const { isDark } = useDarkMode()
       </div>
       <div class="float-right flex flex-row pr-6 pt-2 color-[var(--grey-5)]">
         <button
-          class="cursor-pointer"
           :class="{ 'i-ri-file-copy-fill': !copied, 'i-ri-check-fill': copied }"
+          class="cursor-pointer"
           @click="copyCode"
         />
       </div>
@@ -131,7 +131,7 @@ const { isDark } = useDarkMode()
   margin: 0;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-  background-color: var(--grey-1) !important;
+  background-color: var(--grey-3) !important;
 }
 
 :deep(.line) {

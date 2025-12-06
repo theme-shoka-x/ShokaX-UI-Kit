@@ -25,6 +25,7 @@ export const defaultThemeConfig: ThemeConfig = {
     beian: {
       enable: false,
       icp: '',
+      mps: '',
     },
   },
 
@@ -68,11 +69,11 @@ export const defaultThemeConfig: ThemeConfig = {
 
 // write a vite plugin
 // https://vitejs.dev/guide/api-plugin.html
-export function themePlugin(options: ResolvedValaxyOptions<ThemeConfig>): Plugin {
+export function themePlugin(_options: ResolvedValaxyOptions<ThemeConfig>): Plugin {
   return {
     name: 'valaxy-theme-shokax',
 
-    config(config, env) {
+    config(_config, _env) {
       return {
         // valaxy: {}
       }

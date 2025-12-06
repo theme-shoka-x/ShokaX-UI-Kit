@@ -6,6 +6,9 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
+    "paths": {
+      "@uikit/*": ["../../packages/shokax-uikit/src/*"]
+    },
     "resolveJsonModule": true,
     "types": [
       "vitest",

@@ -32,7 +32,7 @@
 ### 通过 npm 引入
 
 ```shell
-pnpm add nyx-player
+bun add nyx-player
 ```
 
 示例方法：

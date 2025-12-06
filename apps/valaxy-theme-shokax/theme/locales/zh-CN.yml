@@ -2,3 +2,16 @@ valaxy_theme_starter: Valaxy 主题 Starter
 footer:
   status:
     base: 建设在
+segments:
+  created: 创建于
+  colon: ：
+  word: 字
+  words: 字数
+  time: 阅读时间
+  minute: 分钟
+  more: 阅读更多
+  untitled: 未命名文章
+state:
+  posts: 文章
+  categories: 分类
+  tags: 标签

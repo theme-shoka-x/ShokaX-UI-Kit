@@ -1,0 +1,19 @@
+{
+  "folders": [
+    { "name": "ShokaX Monorepo", "path": "." },
+    { "name": "Valaxy Theme", "path": "apps/valaxy-theme-shokax" },
+    { "name": "UI Kit", "path": "packages/shokax-uikit" },
+    { "name": "Nyx Player", "path": "packages/nyx-player" },
+    { "name": "Toolkit", "path": "packages/shokax-toolkit-lib" }
+  ],
+  "settings": {
+    "npm.packageManager": "bun",
+    "eslint.workingDirectories": [
+      "./",
+      "apps/valaxy-theme-shokax",
+      "packages/shokax-uikit",
+      "packages/nyx-player",
+      "packages/shokax-toolkit-lib"
+    ]
+  }
+}

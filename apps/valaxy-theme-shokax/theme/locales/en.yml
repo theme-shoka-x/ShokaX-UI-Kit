@@ -1,1 +1,14 @@
 valaxy_theme_starter: Valaxy Theme Starter
+segments:
+  created: Created
+  colon: ': '
+  word: words
+  words: Word count
+  time: Reading time
+  minute: min
+  more: more...
+  untitled: Untitled post
+state:
+  posts: Posts
+  categories: Categories
+  tags: Tags

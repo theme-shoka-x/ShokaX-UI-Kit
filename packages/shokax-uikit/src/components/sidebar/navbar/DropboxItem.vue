@@ -6,46 +6,48 @@ import { useTemplateRef } from 'vue'
 
 defineProps<{
   item: NavItemType
+  active?: boolean
+  expand?: boolean
 }>()
 
-const linkEl = useTemplateRef<HTMLAnchorElement>('linkEl')
-const hovering = useElementHover(linkEl)
+const itemEl = useTemplateRef<HTMLLIElement>('itemEl')
+const hovering = useElementHover(itemEl)
 
 const location = useBrowserLocation()
 
 function isActive(href: string) {
   return location.value.pathname === href
 }
-
-function isSubItemsActive(item: NavItemType) {
-  let flag = false
-  item.dropboxItems?.forEach((subItem) => {
-    if (location.value.pathname === subItem.href) {
-      flag = true
-    }
-  })
-  return flag
-}
 </script>
 
 <template>
-  <LinkElement ref="linkEl" :href="item.href">
-    <div v-if="item.icon" :class="item.icon" class="inline-block align-text-bottom" />
-    {{ item.text }}
-  </LinkElement>
-  <Transition name="slide-down">
-    <ul v-show="hovering || isSubItemsActive(item)">
-      <li v-for="subItem in item.dropboxItems" :key="subItem.href">
-        <LinkElement :class="{ active: isActive(subItem.href) }" :href="subItem.href">
-          <div v-if="subItem.icon" :class="subItem.icon" class="inline-block align-text-bottom" />
-          {{ subItem.text }}
-        </LinkElement>
-      </li>
-    </ul>
-  </Transition>
+  <li
+    ref="itemEl"
+    class="item dropdown"
+    :class="{ expand: hovering || expand, active }"
+  >
+    <LinkElement :href="item.href">
+      <i v-if="item.icon" :class="item.icon" />
+      {{ item.text }}
+    </LinkElement>
+    <Transition name="slide-down">
+      <ul v-show="hovering || expand" class="submenu">
+        <li v-for="subItem in item.dropboxItems" :key="subItem.href" class="item" :class="{ active: isActive(subItem.href) }">
+          <LinkElement :href="subItem.href">
+            <i v-if="subItem.icon" :class="subItem.icon" />
+            {{ subItem.text }}
+          </LinkElement>
+        </li>
+      </ul>
+    </Transition>
+  </li>
 </template>
 
 <style lang="css" scoped>
+i {
+  display: inline-block;
+}
+
 @keyframes slideDownIn {
   0% {
     opacity: 0;

@@ -6,14 +6,57 @@ import Sidebar from 'shokax-uikit/src/components/sidebar/Sidebar.vue'
 import ToolBar from 'shokax-uikit/src/components/toolbar/ToolBar.vue'
 import Waves from 'shokax-uikit/src/components/waves/Waves.vue'
 import { _PAGE_WAVES_ELEMENT } from 'shokax-uikit/src/symbols.js'
-import { useSiteConfig } from 'valaxy'
-import { provide, useTemplateRef } from 'vue'
+import { usePostList, useSiteConfig } from 'valaxy'
+import { computed, provide, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useThemeConfig } from '../composables'
 import ShokaxFooter from './ShokaxFooter.vue'
 
 const themeConfig = useThemeConfig()
 const siteConfig = useSiteConfig()
+const posts = usePostList()
 const waves = useTemplateRef('waves')
+const { t } = useI18n()
+
+function normalizeTextList(entry: unknown): string[] {
+  if (!entry)
+    return []
+  if (Array.isArray(entry))
+    return entry.flatMap(normalizeTextList)
+  if (typeof entry === 'string')
+    return [entry]
+  if (typeof entry === 'object' && 'name' in (entry as Record<string, any>))
+    return [(entry as { name: string }).name]
+  return []
+}
+
+const sidebarState = computed(() => {
+  const categorySet = new Set<string>()
+  const tagSet = new Set<string>()
+
+  posts.value?.forEach((post: Record<string, unknown>) => {
+    normalizeTextList(post.categories).forEach(cat => categorySet.add(cat))
+    normalizeTextList(post.tags).forEach(tag => tagSet.add(tag))
+  })
+
+  return {
+    posts: {
+      count: posts.value?.length ?? 0,
+      title: t('state.posts', 'Posts'),
+      href: '/archives/',
+    },
+    categories: {
+      count: categorySet.size,
+      title: t('state.categories', 'Categories'),
+      href: '/categories/',
+    },
+    tags: {
+      count: tagSet.size,
+      title: t('state.tags', 'Tags'),
+      href: '/tags/',
+    },
+  }
+})
 
 provide('linkElName', 'a')
 provide(_PAGE_WAVES_ELEMENT, waves)
@@ -34,12 +77,12 @@ provide(_PAGE_WAVES_ELEMENT, waves)
           avatar: siteConfig.author.avatar,
           description: siteConfig.author.intro || '',
         }"
+        :state="sidebarState"
         :navbar="themeConfig.nav"
         :social-links="siteConfig.social"
-        class="w-72 flex-shrink-0 overflow-x-hidden overflow-y-auto p-2"
       />
 
-      <main>
+      <main style="width: 72.5rem;">
         <slot>
           <RouterView v-slot="{ Component }">
             <component :is="Component">
@@ -80,9 +123,5 @@ provide(_PAGE_WAVES_ELEMENT, waves)
     <ToolBar :show-contents-click-callback="() => void 0" />
 
     <ShokaxFooter />
-
-    <!-- <StarterFooter>
-      <slot name="footer" />
-    </StarterFooter> -->
   </div>
 </template>

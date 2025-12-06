@@ -4,13 +4,20 @@ import { defineTheme } from 'valaxy'
 import { defaultThemeConfig, generateSafelist, themePlugin } from './node'
 
 export default defineTheme<ThemeConfig>((options) => {
+  const repoRoot = resolve(__dirname, '../../..')
+  const uikitSrc = resolve(repoRoot, 'packages/shokax-uikit/src')
+
   return {
     themeConfig: defaultThemeConfig,
     vite: {
+      optimizeDeps: {
+        include: ['dayjs'],
+      },
       plugins: [themePlugin(options)],
       resolve: {
         alias: {
-          '@uikit': resolve(__dirname, '../../../packages/shokax-uikit/src'),
+          '@uikit': uikitSrc,
+          'shokax-uikit/src': uikitSrc,
         },
       },
     },

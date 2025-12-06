@@ -49,7 +49,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm dev', // Command to start the dev server
+    command: 'bun run dev', // Command to start the dev server
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     cwd: './', // Run the command in the package directory
